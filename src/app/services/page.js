@@ -1,12 +1,13 @@
 import Link from "next/link";
 
+const WA_URL = "https://wa.me/6285820122323?text=Halo%20Afbenesia%2C%20saya%20ingin%20konsultasi%20mengenai%20layanan%20Anda.";
+
 const services = [
     {
-        id: "ai-strategy",
+        id: "ai-digital-strategy",
         icon: "🤖",
         title: "AI Digital Strategy Consulting",
-        shortTitle: "AI Digital Strategy",
-        desc: "Kami menganalisis kebutuhan bisnis Anda secara mendalam dan mengembangkan strategi digital yang didukung oleh AI, mencakup analisis pasar, SEO, dan kampanye iklan yang terukur.",
+        desc: "Kami menganalisis kebutuhan bisnis Anda secara mendalam dan mengembangkan strategi digital yang didukung oleh AI.",
         features: [
             "Analisis pasar & kompetitor berbasis data",
             "Strategi SEO & SEM yang teroptimasi AI",
@@ -15,15 +16,12 @@ const services = [
             "Optimasi konversi berbasis AI",
         ],
         tag: "Terpopuler",
-        color: "bg-primary",
-        textColor: "text-white",
     },
     {
-        id: "coaching",
+        id: "business-coaching",
         icon: "🎯",
         title: "Business Coaching & Mentorship",
-        shortTitle: "Business Coaching",
-        desc: "Program coaching intensif yang dirancang untuk membantu Anda menghadapi tantangan bisnis dengan lebih percaya diri, mencakup bimbingan reguler dan analisis kinerja.",
+        desc: "Program coaching intensif untuk menghadapi tantangan bisnis dengan lebih percaya diri.",
         features: [
             "Sesi coaching 1-on-1 dengan mentor berpengalaman",
             "Analisis kinerja bisnis berkala",
@@ -32,15 +30,12 @@ const services = [
             "Mindset & leadership development",
         ],
         tag: null,
-        color: "bg-cream",
-        textColor: "text-dark",
     },
     {
-        id: "va",
+        id: "virtual-assistant",
         icon: "🖥️",
         title: "Virtual Assistant Services",
-        shortTitle: "Virtual Assistant",
-        desc: "Dukungan administrasi yang efisien dan profesional, mencakup manajemen email, pengaturan jadwal, dan pengelolaan media sosial agar Anda fokus pada hal terpenting.",
+        desc: "Dukungan administrasi yang efisien dan profesional agar Anda fokus pada hal terpenting.",
         features: [
             "Manajemen email & komunikasi bisnis",
             "Pengaturan jadwal & kalender",
@@ -49,15 +44,12 @@ const services = [
             "Pembuatan laporan & presentasi",
         ],
         tag: null,
-        color: "bg-cream",
-        textColor: "text-dark",
     },
     {
-        id: "marketing",
+        id: "digital-marketing",
         icon: "📢",
         title: "Digital Marketing Campaigns",
-        shortTitle: "Digital Marketing",
-        desc: "Kampanye pemasaran digital yang efektif dan terukur, termasuk iklan Google, iklan media sosial, dan kampanye email untuk meningkatkan konversi dan penjualan bisnis.",
+        desc: "Kampanye pemasaran digital yang efektif untuk meningkatkan konversi dan penjualan bisnis.",
         features: [
             "Google Ads & Meta Ads management",
             "Konten marketing & copywriting",
@@ -66,15 +58,12 @@ const services = [
             "Analitik & optimasi kampanye",
         ],
         tag: null,
-        color: "bg-cream",
-        textColor: "text-dark",
     },
     {
-        id: "ai-solutions",
+        id: "custom-ai",
         icon: "⚙️",
         title: "Custom AI Solutions",
-        shortTitle: "Custom AI",
-        desc: "Pengembangan solusi AI kustom seperti chatbot pintar, sistem rekomendasi produk, dan analitik prediktif yang disesuaikan dengan kebutuhan unik bisnis Anda.",
+        desc: "Pengembangan solusi AI kustom seperti chatbot, sistem rekomendasi, dan analitik prediktif.",
         features: [
             "Chatbot AI untuk customer service",
             "Sistem rekomendasi produk",
@@ -83,15 +72,12 @@ const services = [
             "Integrasi dengan sistem existing",
         ],
         tag: "Baru",
-        color: "bg-cream",
-        textColor: "text-dark",
     },
     {
         id: "email-marketing",
         icon: "✉️",
         title: "Email Marketing Strategy",
-        shortTitle: "Email Marketing",
-        desc: "Strategi kampanye email yang personal dan tertarget untuk membangun loyalitas pelanggan, meningkatkan repeat order, dan mendorong pertumbuhan penjualan.",
+        desc: "Strategi kampanye email yang personal dan tertarget untuk membangun loyalitas pelanggan.",
         features: [
             "Segmentasi audiens yang tepat",
             "Desain email yang menarik & responsif",
@@ -100,8 +86,6 @@ const services = [
             "Laporan performa komprehensif",
         ],
         tag: null,
-        color: "bg-cream",
-        textColor: "text-dark",
     },
 ];
 
@@ -126,61 +110,68 @@ export default function ServicesPage() {
                         <span className="block text-primary">Inovatif & Terukur</span>
                     </h1>
                     <p className="text-white/60 text-lg max-w-2xl leading-relaxed">
-                        Layanan terintegrasi yang dirancang untuk pertumbuhan bisnis Anda yang berkelanjutan di era digital — dari strategi AI hingga pendampingan penuh.
+                        Layanan terintegrasi yang dirancang untuk pertumbuhan bisnis Anda yang berkelanjutan di era digital.
                     </p>
                 </div>
             </section>
 
-            {/* ===== SERVICES LIST ===== */}
+            {/* ===== SERVICES GRID ===== */}
             <section className="py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {services.map((service, i) => (
                             <div
                                 key={service.id}
                                 id={service.id}
-                                className={`p-8 rounded-2xl border border-[#E2E8F0] ${service.color} transition-all hover:shadow-card-hover`}
+                                className={`relative p-7 rounded-2xl border transition-all hover:-translate-y-1 hover:shadow-card-hover ${
+                                    i === 0 ? "bg-primary border-primary" : "bg-cream border-[#E2E8F0] hover:border-primary/30"
+                                }`}
                             >
-                                <div className="flex flex-col lg:flex-row gap-8">
-                                    <div className="lg:w-1/2">
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <span className="text-3xl">{service.icon}</span>
-                                            {service.tag && (
-                                                <span className="bg-accent text-dark text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
-                                                    {service.tag}
-                                                </span>
-                                            )}
-                                        </div>
-                                        <h2 className={`text-2xl font-extrabold mb-3 ${i === 0 ? "text-white" : "text-dark"}`}>
-                                            {service.title}
-                                        </h2>
-                                        <p className={`leading-relaxed text-sm mb-6 ${i === 0 ? "text-white/70" : "text-dark/60"}`}>
-                                            {service.desc}
-                                        </p>
-                                        <Link
-                                            href="/contact"
-                                            className={`inline-block px-6 py-3 rounded-xl font-bold text-sm transition-colors ${i === 0
-                                                    ? "bg-accent text-dark hover:bg-amber-400"
-                                                    : "bg-primary text-white hover:bg-primary-dark"
-                                                }`}
-                                        >
-                                            Diskusikan Kebutuhan →
-                                        </Link>
-                                    </div>
-                                    <div className="lg:w-1/2">
-                                        <h3 className={`font-bold text-sm uppercase tracking-widest mb-4 ${i === 0 ? "text-white/50" : "text-dark/40"}`}>
-                                            Yang Anda Dapatkan
-                                        </h3>
-                                        <ul className="space-y-2.5">
-                                            {service.features.map((feature) => (
-                                                <li key={feature} className="flex items-start gap-3">
-                                                    <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5 ${i === 0 ? "bg-white/20 text-white" : "bg-primary/10 text-primary"
-                                                        }`}>✓</span>
-                                                    <span className={`text-sm ${i === 0 ? "text-white/80" : "text-dark/65"}`}>{feature}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
+                                {service.tag && (
+                                    <span className="absolute top-5 right-5 bg-accent text-dark text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                                        {service.tag}
+                                    </span>
+                                )}
+                                <div className="text-3xl mb-4">{service.icon}</div>
+                                <h2 className={`font-extrabold text-xl mb-2 leading-snug ${i === 0 ? "text-white" : "text-dark"}`}>
+                                    {service.title}
+                                </h2>
+                                <p className={`text-sm leading-relaxed mb-5 ${i === 0 ? "text-white/70" : "text-dark/60"}`}>
+                                    {service.desc}
+                                </p>
+                                <ul className="space-y-2 mb-6">
+                                    {service.features.map((feature) => (
+                                        <li key={feature} className="flex items-start gap-2">
+                                            <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5 ${
+                                                i === 0 ? "bg-white/20 text-white" : "bg-primary/10 text-primary"
+                                            }`}>✓</span>
+                                            <span className={`text-xs ${i === 0 ? "text-white/80" : "text-dark/65"}`}>{feature}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                                <div className="flex gap-3 flex-wrap">
+                                    <Link
+                                        href={`/services/${service.id}`}
+                                        className={`inline-block px-4 py-2 rounded-xl font-bold text-xs transition-colors ${
+                                            i === 0
+                                                ? "bg-white/20 text-white hover:bg-white/30"
+                                                : "bg-primary/10 text-primary hover:bg-primary hover:text-white"
+                                        }`}
+                                    >
+                                        Detail Layanan →
+                                    </Link>
+                                    <a
+                                        href={`${WA_URL.replace("layanan Anda", `layanan ${service.title}`)}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={`inline-block px-4 py-2 rounded-xl font-bold text-xs transition-colors ${
+                                            i === 0
+                                                ? "bg-accent text-dark hover:bg-amber-400"
+                                                : "bg-dark text-white hover:bg-dark/80"
+                                        }`}
+                                    >
+                                        💬 Diskusikan Kebutuhan
+                                    </a>
                                 </div>
                             </div>
                         ))}
@@ -212,13 +203,12 @@ export default function ServicesPage() {
             {/* ===== CTA ===== */}
             <section className="bg-primary py-16">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4 tracking-tight">
-                        Siap Mengembangkan Bisnis Anda?
-                    </h2>
-                    <p className="text-white/60 mb-8">Hubungi kami hari ini untuk konsultasi gratis dan temukan layanan yang tepat untuk Anda.</p>
-                    <Link href="/contact" className="inline-block bg-accent text-dark px-8 py-4 rounded-xl font-bold hover:bg-amber-400 transition-colors">
-                        Hubungi Kami Sekarang
-                    </Link>
+                    <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4 tracking-tight">Siap Mengembangkan Bisnis Anda?</h2>
+                    <p className="text-white/60 mb-8">Hubungi kami hari ini untuk konsultasi gratis — langsung via WhatsApp!</p>
+                    <a href={WA_URL} target="_blank" rel="noopener noreferrer"
+                        className="inline-block bg-accent text-dark px-8 py-4 rounded-xl font-bold hover:bg-amber-400 transition-colors">
+                        💬 Hubungi Kami via WhatsApp
+                    </a>
                 </div>
             </section>
         </div>

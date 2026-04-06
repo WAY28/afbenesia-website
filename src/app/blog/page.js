@@ -1,4 +1,8 @@
+"use client";
 import Link from "next/link";
+import { useState } from "react";
+
+const WA_URL = "https://wa.me/6285820122323?text=Halo%20Afbenesia%2C%20saya%20ingin%20konsultasi%20mengenai%20layanan%20Anda.";
 
 const posts = [
     {
@@ -50,7 +54,7 @@ const posts = [
         slug: "ai-chatbot-customer-service",
         category: "AI & Teknologi",
         title: "Implementasi AI Chatbot untuk Customer Service yang Efektif",
-        excerpt: "AI chatbot bukan sekadar robot penjawab pertanyaan. Dengan pendekatan humanized, chatbot bisa menjadi aset penting dalam membangun loyalitas pelanggan.",
+        excerpt: "AI chatbot bukan sekadar robot penjawab. Dengan pendekatan humanized, chatbot bisa menjadi aset penting dalam membangun loyalitas pelanggan.",
         date: "5 Februari 2026",
         readTime: "6 menit",
         featured: false,
@@ -60,8 +64,9 @@ const posts = [
 const categories = ["Semua", "AI & Teknologi", "Strategi Digital", "Business Coaching", "Digital Marketing", "Virtual Assistant"];
 
 export default function BlogPage() {
+    const [activeCategory, setActiveCategory] = useState("Semua");
     const featured = posts[0];
-    const rest = posts.slice(1);
+    const filtered = posts.slice(1).filter(p => activeCategory === "Semua" || p.category === activeCategory);
 
     return (
         <div className="font-sans">
@@ -84,14 +89,16 @@ export default function BlogPage() {
             {/* ===== CATEGORIES ===== */}
             <section className="bg-white border-b border-[#E2E8F0] sticky top-16 z-40">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex gap-2 py-3 overflow-x-auto scrollbar-hide">
-                        {categories.map((cat, i) => (
+                    <div className="flex gap-2 py-3 overflow-x-auto">
+                        {categories.map((cat) => (
                             <button
                                 key={cat}
-                                className={`flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors ${i === 0
+                                onClick={() => setActiveCategory(cat)}
+                                className={`flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors ${
+                                    activeCategory === cat
                                         ? "bg-primary text-white"
                                         : "bg-cream text-dark/60 hover:bg-primary/10 hover:text-primary"
-                                    }`}
+                                }`}
                             >
                                 {cat}
                             </button>
@@ -111,23 +118,20 @@ export default function BlogPage() {
                                     <span className="text-white/50 text-xs">{featured.category}</span>
                                 </div>
                                 <h2 className="text-2xl sm:text-3xl font-extrabold leading-tight mb-4">{featured.title}</h2>
-                                <p className="text-white/70 text-sm leading-relaxed mb-6">{featured.excerpt}</p>
-                                <div className="flex items-center gap-4">
+                                <p className="text-white/70 text-sm leading-relaxed mb-4">{featured.excerpt}</p>
+                                <div className="flex items-center gap-4 mb-6">
                                     <span className="text-white/50 text-xs">{featured.date}</span>
                                     <span className="text-white/30">•</span>
                                     <span className="text-white/50 text-xs">{featured.readTime} baca</span>
                                 </div>
+                                <Link href={`/blog/${featured.slug}`}
+                                    className="inline-block bg-accent text-dark px-6 py-3 rounded-xl font-bold text-sm hover:bg-amber-400 transition-colors">
+                                    Baca Selengkapnya →
+                                </Link>
                             </div>
                             <div className="lg:w-1/3 flex justify-center">
-                                <div className="w-32 h-32 bg-white/10 rounded-2xl flex items-center justify-center text-6xl">
-                                    🤖
-                                </div>
+                                <div className="w-32 h-32 bg-white/10 rounded-2xl flex items-center justify-center text-6xl">🤖</div>
                             </div>
-                        </div>
-                        <div className="mt-6">
-                            <Link href={`/blog/${featured.slug}`} className="inline-block bg-accent text-dark px-6 py-3 rounded-xl font-bold text-sm hover:bg-amber-400 transition-colors">
-                                Baca Selengkapnya →
-                            </Link>
                         </div>
                     </div>
                 </div>
@@ -137,54 +141,49 @@ export default function BlogPage() {
             <section className="py-16 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <h2 className="text-2xl font-extrabold text-dark mb-8">Artikel Terbaru</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {rest.map((post) => (
-                            <Link
-                                key={post.slug}
-                                href={`/blog/${post.slug}`}
-                                className="group p-6 rounded-2xl border border-[#E2E8F0] bg-cream hover:border-primary/30 hover:shadow-card-hover transition-all hover:-translate-y-1"
-                            >
-                                <div className="flex items-center justify-between mb-4">
-                                    <span className="text-primary text-xs font-bold uppercase tracking-widest">{post.category}</span>
-                                    <span className="text-dark/40 text-xs">{post.readTime} baca</span>
-                                </div>
-                                <h3 className="font-bold text-dark text-lg leading-snug mb-3 group-hover:text-primary transition-colors">
-                                    {post.title}
-                                </h3>
-                                <p className="text-dark/55 text-sm leading-relaxed mb-4 line-clamp-3">
-                                    {post.excerpt}
-                                </p>
-                                <div className="flex items-center justify-between">
-                                    <span className="text-dark/40 text-xs">{post.date}</span>
-                                    <span className="text-primary text-sm font-semibold group-hover:gap-2 flex items-center gap-1 transition-all">
-                                        Baca →
-                                    </span>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
+                    {filtered.length === 0 ? (
+                        <div className="text-center py-16 text-dark/40">
+                            <p className="text-4xl mb-3">📭</p>
+                            <p className="font-semibold">Belum ada artikel di kategori ini.</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {filtered.map((post) => (
+                                <Link
+                                    key={post.slug}
+                                    href={`/blog/${post.slug}`}
+                                    className="group p-6 rounded-2xl border border-[#E2E8F0] bg-cream hover:border-primary/30 hover:shadow-card-hover transition-all hover:-translate-y-1"
+                                >
+                                    <div className="flex items-center justify-between mb-4">
+                                        <span className="text-primary text-xs font-bold uppercase tracking-widest">{post.category}</span>
+                                        <span className="text-dark/40 text-xs">{post.readTime} baca</span>
+                                    </div>
+                                    <h3 className="font-bold text-dark text-lg leading-snug mb-3 group-hover:text-primary transition-colors">
+                                        {post.title}
+                                    </h3>
+                                    <p className="text-dark/55 text-sm leading-relaxed mb-4 line-clamp-3">{post.excerpt}</p>
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-dark/40 text-xs">{post.date}</span>
+                                        <span className="text-primary text-sm font-semibold">Baca →</span>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </section>
 
             {/* ===== NEWSLETTER ===== */}
             <section className="bg-primary py-16">
                 <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-3 tracking-tight">
-                        Dapatkan Insights Terbaru
-                    </h2>
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-3 tracking-tight">Dapatkan Insights Terbaru</h2>
                     <p className="text-white/60 text-sm mb-8">
-                        Subscribe newsletter kami dan dapatkan tips bisnis digital, strategi AI, dan insights eksklusif langsung di inbox Anda.
+                        Atau langsung konsultasikan kebutuhan bisnis Anda dengan tim kami!
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                        <input
-                            type="email"
-                            placeholder="email@anda.com"
-                            className="flex-1 px-4 py-3 rounded-xl text-dark text-sm focus:outline-none"
-                        />
-                        <button className="bg-accent text-dark px-6 py-3 rounded-xl font-bold text-sm hover:bg-amber-400 transition-colors whitespace-nowrap">
-                            Subscribe Gratis
-                        </button>
-                    </div>
+                    <a href={WA_URL} target="_blank" rel="noopener noreferrer"
+                        className="inline-block bg-accent text-dark px-8 py-4 rounded-xl font-bold hover:bg-amber-400 transition-colors">
+                        💬 Konsultasi Gratis via WhatsApp
+                    </a>
                 </div>
             </section>
         </div>

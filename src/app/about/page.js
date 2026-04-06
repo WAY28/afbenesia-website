@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 
+const WA_URL = "https://wa.me/6285820122323?text=Halo%20Afbenesia%2C%20saya%20ingin%20konsultasi%20mengenai%20layanan%20Anda.";
+
 const timeline = [
     { year: "2018", desc: "Afbenesia didirikan dengan misi untuk membantu bisnis kecil menengah di Indonesia berkembang melalui teknologi digital." },
     { year: "2019", desc: "Peluncuran program coaching pertama yang berfokus pada strategi digital untuk UMKM." },
@@ -11,26 +13,10 @@ const timeline = [
 ];
 
 const values = [
-    {
-        icon: "💡",
-        title: "Inovasi",
-        desc: "Kami selalu mencari cara baru dan lebih baik untuk melayani klien, memanfaatkan teknologi terdepan seperti AI.",
-    },
-    {
-        icon: "🤝",
-        title: "Integritas",
-        desc: "Kejujuran dan transparansi dalam setiap interaksi dengan klien dan mitra adalah komitmen kami.",
-    },
-    {
-        icon: "🌱",
-        title: "Keberlanjutan",
-        desc: "Kami fokus pada solusi jangka panjang yang membawa manfaat berkelanjutan, bukan sekadar hasil instan.",
-    },
-    {
-        icon: "❤️",
-        title: "Humanized",
-        desc: "Teknologi harus terasa manusiawi. Kami memastikan setiap solusi AI tetap memiliki sentuhan personal.",
-    },
+    { icon: "💡", title: "Inovasi", desc: "Kami selalu mencari cara baru dan lebih baik untuk melayani klien, memanfaatkan teknologi terdepan seperti AI." },
+    { icon: "🤝", title: "Integritas", desc: "Kejujuran dan transparansi dalam setiap interaksi dengan klien dan mitra adalah komitmen kami." },
+    { icon: "🌱", title: "Keberlanjutan", desc: "Kami fokus pada solusi jangka panjang yang membawa manfaat berkelanjutan, bukan sekadar hasil instan." },
+    { icon: "❤️", title: "Humanized", desc: "Teknologi harus terasa manusiawi. Kami memastikan setiap solusi AI tetap memiliki sentuhan personal." },
 ];
 
 const team = [
@@ -45,6 +31,17 @@ const achievements = [
     { icon: "👥", title: "100+ Klien Sukses", desc: "Membantu lebih dari 100 bisnis mencapai tujuan mereka di seluruh Indonesia." },
     { icon: "📈", title: "Kenaikan Omset 200%", desc: "Rata-rata klien melaporkan kenaikan omset signifikan setelah menggunakan layanan kami." },
     { icon: "⭐", title: "98% Tingkat Kepuasan", desc: "Hampir seluruh klien kami menyatakan puas dan merekomendasikan Afbenesia." },
+];
+
+const clients = [
+    { name: "KemenkopUKM", category: "Pemerintah", initials: "KU", color: "bg-blue-100 text-blue-700" },
+    { name: "PT Maju Bersama", category: "Korporasi", initials: "MB", color: "bg-green-100 text-green-700" },
+    { name: "Dinas Perindustrian Jombang", category: "Pemerintah Daerah", initials: "DJ", color: "bg-purple-100 text-purple-700" },
+    { name: "Startup X", category: "Startup", initials: "SX", color: "bg-orange-100 text-orange-700" },
+    { name: "CoffeeHouse", category: "F&B", initials: "CH", color: "bg-amber-100 text-amber-700" },
+    { name: "Toko Nusantara", category: "Retail", initials: "TN", color: "bg-rose-100 text-rose-700" },
+    { name: "Kreatif Indah", category: "Kreatif", initials: "KI", color: "bg-pink-100 text-pink-700" },
+    { name: "Usaha Mandiri", category: "UMKM", initials: "UM", color: "bg-teal-100 text-teal-700" },
 ];
 
 export default function AboutPage() {
@@ -103,16 +100,9 @@ export default function AboutPage() {
                                 </div>
                             </div>
                         </div>
-
-                        {/* Foto tim */}
                         <div className="lg:w-1/2 w-full">
                             <div className="relative rounded-2xl overflow-hidden aspect-video bg-dark/10">
-                                <Image
-                                    src="/background.jpg"
-                                    alt="Tim Afbenesia"
-                                    fill
-                                    className="object-cover"
-                                />
+                                <Image src="/background.jpg" alt="Tim Afbenesia" fill className="object-cover" />
                                 <div className="absolute inset-0 bg-primary/20" />
                                 <div className="absolute bottom-4 left-4 right-4 bg-dark/70 backdrop-blur-sm rounded-xl p-4">
                                     <p className="text-white font-bold text-sm">Tim Afbenesia</p>
@@ -143,35 +133,60 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* ===== TIMELINE ===== */}
+            {/* ===== CLIENTS ===== */}
             <section className="py-20 bg-cream">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-14">
-                        <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-3">Perjalanan Kami</span>
-                        <h2 className="text-3xl sm:text-4xl font-extrabold text-dark tracking-tight">Jejak Langkah Afbenesia</h2>
+                    <div className="text-center mb-12">
+                        <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-3">Klien Kami</span>
+                        <h2 className="text-3xl sm:text-4xl font-extrabold text-dark tracking-tight">Yang Telah Bekerja Sama</h2>
+                        <p className="text-dark/50 text-sm mt-3 max-w-lg mx-auto">
+                            Kami telah dipercaya oleh berbagai instansi pemerintah, korporasi, UMKM, dan startup di seluruh Indonesia.
+                        </p>
                     </div>
-                    <div className="relative">
-                        <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-primary/20 md:-translate-x-0.5" />
-                        <div className="space-y-8">
-                            {timeline.map((item, i) => (
-                                <div key={item.year} className={`relative flex flex-col md:flex-row gap-4 md:gap-8 ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}>
-                                    <div className={`md:w-1/2 ${i % 2 === 0 ? "md:text-right md:pr-10" : "md:text-left md:pl-10"}`}>
-                                        <div className="bg-white p-5 rounded-2xl border border-[#E2E8F0] ml-10 md:ml-0 shadow-card">
-                                            <span className="text-primary font-extrabold text-2xl block mb-1">{item.year}</span>
-                                            <p className="text-dark/65 text-sm leading-relaxed">{item.desc}</p>
-                                        </div>
-                                    </div>
-                                    <div className="absolute left-4 md:left-1/2 top-5 w-3 h-3 bg-primary rounded-full md:-translate-x-1.5 border-2 border-white shadow" />
-                                    <div className="md:w-1/2" />
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-5 mb-10">
+                        {clients.map((client) => (
+                            <div key={client.name} className="bg-white p-5 rounded-2xl border border-[#E2E8F0] hover:border-primary/30 hover:shadow-card-hover transition-all text-center group">
+                                <div className={`w-12 h-12 ${client.color} rounded-xl flex items-center justify-center font-bold text-sm mx-auto mb-3 group-hover:scale-105 transition-transform`}>
+                                    {client.initials}
                                 </div>
-                            ))}
+                                <p className="font-bold text-dark text-sm leading-snug">{client.name}</p>
+                                <p className="text-dark/45 text-xs mt-1">{client.category}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="text-center">
+                        <div className="inline-flex items-center gap-2 bg-primary/5 border border-primary/20 px-6 py-3 rounded-xl">
+                            <span className="text-xl">🤝</span>
+                            <p className="text-dark/70 text-sm font-medium">dan masih banyak lagi klien di seluruh Indonesia</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* ===== ACHIEVEMENTS ===== */}
+            {/* ===== TIMELINE ===== */}
             <section className="py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-14">
+                        <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-3">Perjalanan Kami</span>
+                        <h2 className="text-3xl sm:text-4xl font-extrabold text-dark tracking-tight">Jejak Langkah Afbenesia</h2>
+                    </div>
+                    <div className="space-y-6 max-w-3xl mx-auto">
+                        {timeline.map((item) => (
+                            <div key={item.year} className="flex gap-6 items-start">
+                                <div className="flex-shrink-0 w-16 h-16 bg-primary text-white rounded-2xl flex items-center justify-center font-extrabold text-sm text-center leading-tight">
+                                    {item.year}
+                                </div>
+                                <div className="bg-cream p-5 rounded-2xl border border-[#E2E8F0] flex-1">
+                                    <p className="text-dark/65 text-sm leading-relaxed">{item.desc}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ===== ACHIEVEMENTS ===== */}
+            <section className="py-20 bg-cream">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-14">
                         <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-3">Pencapaian</span>
@@ -179,7 +194,7 @@ export default function AboutPage() {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                         {achievements.map((a) => (
-                            <div key={a.title} className="p-6 rounded-2xl bg-cream border border-[#E2E8F0] hover:border-primary/30 hover:shadow-card-hover transition-all">
+                            <div key={a.title} className="p-6 rounded-2xl bg-white border border-[#E2E8F0] hover:border-primary/30 hover:shadow-card-hover transition-all">
                                 <div className="text-3xl mb-3">{a.icon}</div>
                                 <h3 className="font-bold text-dark mb-1">{a.title}</h3>
                                 <p className="text-dark/55 text-sm leading-relaxed">{a.desc}</p>
@@ -195,7 +210,6 @@ export default function AboutPage() {
                     <div className="text-center mb-14">
                         <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-3">Tim Kami</span>
                         <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">Tim Profesional Kami</h2>
-                        <p className="text-white/50 text-sm mt-3 max-w-md mx-auto">Para ahli berdedikasi yang siap membantu pertumbuhan bisnis Anda.</p>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {team.map((member) => (
@@ -215,13 +229,12 @@ export default function AboutPage() {
             {/* ===== CTA ===== */}
             <section className="bg-primary py-16">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4 tracking-tight">
-                        Mulai Transformasi Bisnis Anda?
-                    </h2>
-                    <p className="text-white/60 mb-8">Hubungi kami sekarang untuk konsultasi gratis dan temukan bagaimana kami dapat membantu.</p>
-                    <Link href="/contact" className="inline-block bg-accent text-dark px-8 py-4 rounded-xl font-bold hover:bg-amber-400 transition-colors">
-                        Hubungi Kami Sekarang
-                    </Link>
+                    <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4 tracking-tight">Mulai Transformasi Bisnis Anda?</h2>
+                    <p className="text-white/60 mb-8">Hubungi kami sekarang untuk konsultasi gratis — langsung via WhatsApp!</p>
+                    <a href={WA_URL} target="_blank" rel="noopener noreferrer"
+                        className="inline-block bg-accent text-dark px-8 py-4 rounded-xl font-bold hover:bg-amber-400 transition-colors">
+                        💬 Hubungi Kami via WhatsApp
+                    </a>
                 </div>
             </section>
         </div>

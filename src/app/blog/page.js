@@ -1,17 +1,18 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { useLang } from "@/components/LanguageContext";
 
 const WA_URL = "https://wa.me/6285820122323?text=Halo%20Afbenesia%2C%20saya%20ingin%20konsultasi%20mengenai%20layanan%20Anda.";
 
-const posts = [
+const postsId = [
     {
         slug: "humanized-ai-bisnis-indonesia",
         category: "AI & Teknologi",
         title: "Humanized AI: Masa Depan Bisnis Digital di Indonesia",
         excerpt: "Bagaimana AI yang terasa manusiawi dapat mengubah cara bisnis Indonesia berinteraksi dengan pelanggan dan menciptakan pertumbuhan berkelanjutan.",
         date: "15 Maret 2026",
-        readTime: "5 menit",
+        readTime: "5",
         featured: true,
     },
     {
@@ -20,7 +21,7 @@ const posts = [
         title: "5 Strategi Digital yang Wajib Dicoba UMKM di 2026",
         excerpt: "Di era persaingan digital yang semakin ketat, UMKM perlu strategi tepat untuk bertahan dan berkembang. Berikut 5 strategi yang terbukti efektif.",
         date: "8 Maret 2026",
-        readTime: "7 menit",
+        readTime: "7",
         featured: false,
     },
     {
@@ -29,7 +30,7 @@ const posts = [
         title: "Perbedaan Business Coaching dan Konsultan Bisnis: Mana yang Tepat?",
         excerpt: "Banyak pemilik bisnis bingung antara memilih coach bisnis atau konsultan. Artikel ini menjelaskan perbedaan dan kapan waktu yang tepat untuk masing-masing.",
         date: "1 Maret 2026",
-        readTime: "6 menit",
+        readTime: "6",
         featured: false,
     },
     {
@@ -38,7 +39,7 @@ const posts = [
         title: "Cara Meningkatkan Omset 200% dengan Digital Marketing yang Tepat",
         excerpt: "Bukan sekadar teori — ini adalah strategi nyata yang sudah kami terapkan bersama klien kami dan berhasil meningkatkan omset secara drastis.",
         date: "22 Februari 2026",
-        readTime: "8 menit",
+        readTime: "8",
         featured: false,
     },
     {
@@ -47,7 +48,7 @@ const posts = [
         title: "Bagaimana Virtual Assistant Meningkatkan Produktivitas Bisnis Anda",
         excerpt: "Delegasi tugas administratif ke virtual assistant profesional bisa membebaskan waktu berharga Anda untuk fokus pada pertumbuhan bisnis.",
         date: "14 Februari 2026",
-        readTime: "4 menit",
+        readTime: "4",
         featured: false,
     },
     {
@@ -56,17 +57,79 @@ const posts = [
         title: "Implementasi AI Chatbot untuk Customer Service yang Efektif",
         excerpt: "AI chatbot bukan sekadar robot penjawab. Dengan pendekatan humanized, chatbot bisa menjadi aset penting dalam membangun loyalitas pelanggan.",
         date: "5 Februari 2026",
-        readTime: "6 menit",
+        readTime: "6",
         featured: false,
     },
 ];
 
-const categories = ["Semua", "AI & Teknologi", "Strategi Digital", "Business Coaching", "Digital Marketing", "Virtual Assistant"];
+const postsEn = [
+    {
+        slug: "humanized-ai-bisnis-indonesia",
+        category: "AI & Technology",
+        title: "Humanized AI: The Future of Digital Business in Indonesia",
+        excerpt: "How human-feeling AI can transform the way Indonesian businesses interact with customers and create sustainable growth.",
+        date: "March 15, 2026",
+        readTime: "5",
+        featured: true,
+    },
+    {
+        slug: "strategi-digital-umkm-2026",
+        category: "Digital Strategy",
+        title: "5 Digital Strategies Every SME Must Try in 2026",
+        excerpt: "In an increasingly competitive digital era, SMEs need the right strategy to survive and grow. Here are 5 proven effective strategies.",
+        date: "March 8, 2026",
+        readTime: "7",
+        featured: false,
+    },
+    {
+        slug: "coaching-bisnis-vs-konsultan",
+        category: "Business Coaching",
+        title: "Business Coaching vs. Business Consultant: Which is Right for You?",
+        excerpt: "Many business owners are confused about choosing a business coach or consultant. This article explains the differences and the right time for each.",
+        date: "March 1, 2026",
+        readTime: "6",
+        featured: false,
+    },
+    {
+        slug: "meningkatkan-omset-digital-marketing",
+        category: "Digital Marketing",
+        title: "How to Increase Revenue by 200% with the Right Digital Marketing",
+        excerpt: "Not just theory — these are real strategies we have applied with our clients that have dramatically increased revenue.",
+        date: "February 22, 2026",
+        readTime: "8",
+        featured: false,
+    },
+    {
+        slug: "virtual-assistant-produktivitas",
+        category: "Virtual Assistant",
+        title: "How a Virtual Assistant Boosts Your Business Productivity",
+        excerpt: "Delegating administrative tasks to a professional virtual assistant can free up your valuable time to focus on business growth.",
+        date: "February 14, 2026",
+        readTime: "4",
+        featured: false,
+    },
+    {
+        slug: "ai-chatbot-customer-service",
+        category: "AI & Technology",
+        title: "Implementing an AI Chatbot for Effective Customer Service",
+        excerpt: "AI chatbots are more than just answering robots. With a humanized approach, chatbots can become an important asset in building customer loyalty.",
+        date: "February 5, 2026",
+        readTime: "6",
+        featured: false,
+    },
+];
 
 export default function BlogPage() {
-    const [activeCategory, setActiveCategory] = useState("Semua");
+    const { lang, t } = useLang();
+    const posts = lang === "en" ? postsEn : postsId;
+    const categories = t("blog_categories");
+    const [activeCategory, setActiveCategory] = useState(categories[0]);
+
+    // Reset active category when language changes to avoid mismatch
+    const handleCategoryClick = (cat) => setActiveCategory(cat);
+
     const featured = posts[0];
-    const filtered = posts.slice(1).filter(p => activeCategory === "Semua" || p.category === activeCategory);
+    const filtered = posts.slice(1).filter(p => activeCategory === categories[0] || p.category === activeCategory);
 
     return (
         <div className="font-sans">
@@ -75,13 +138,13 @@ export default function BlogPage() {
             <section className="bg-dark text-white py-24 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-1/3 h-full bg-primary opacity-[0.06] skew-x-[-8deg] translate-x-16 pointer-events-none" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-4">Blog & Insights</span>
+                    <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-4">{t("blog_badge")}</span>
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight mb-6 max-w-3xl">
-                        Wawasan &
-                        <span className="block text-primary">Info Terbaru</span>
+                        {t("blog_title")}
+                        <span className="block text-primary">{t("blog_title2")}</span>
                     </h1>
                     <p className="text-white/60 text-lg max-w-xl leading-relaxed">
-                        Tips, strategi, dan insights seputar bisnis digital, AI, dan pertumbuhan usaha di Indonesia.
+                        {t("blog_desc")}
                     </p>
                 </div>
             </section>
@@ -93,7 +156,7 @@ export default function BlogPage() {
                         {categories.map((cat) => (
                             <button
                                 key={cat}
-                                onClick={() => setActiveCategory(cat)}
+                                onClick={() => handleCategoryClick(cat)}
                                 className={`flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors ${
                                     activeCategory === cat
                                         ? "bg-primary text-white"
@@ -122,11 +185,11 @@ export default function BlogPage() {
                                 <div className="flex items-center gap-4 mb-6">
                                     <span className="text-white/50 text-xs">{featured.date}</span>
                                     <span className="text-white/30">•</span>
-                                    <span className="text-white/50 text-xs">{featured.readTime} baca</span>
+                                    <span className="text-white/50 text-xs">{featured.readTime} {t("blog_min_read")}</span>
                                 </div>
                                 <Link href={`/blog/${featured.slug}`}
                                     className="inline-block bg-accent text-dark px-6 py-3 rounded-xl font-bold text-sm hover:bg-amber-400 transition-colors">
-                                    Baca Selengkapnya →
+                                    {lang === "en" ? "Read More →" : "Baca Selengkapnya →"}
                                 </Link>
                             </div>
                             <div className="lg:w-1/3 flex justify-center">
@@ -140,11 +203,11 @@ export default function BlogPage() {
             {/* ===== ALL POSTS ===== */}
             <section className="py-16 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h2 className="text-2xl font-extrabold text-dark mb-8">Artikel Terbaru</h2>
+                    <h2 className="text-2xl font-extrabold text-dark mb-8">{t("blog_featured")}</h2>
                     {filtered.length === 0 ? (
                         <div className="text-center py-16 text-dark/40">
                             <p className="text-4xl mb-3">📭</p>
-                            <p className="font-semibold">Belum ada artikel di kategori ini.</p>
+                            <p className="font-semibold">{lang === "en" ? "No articles in this category yet." : "Belum ada artikel di kategori ini."}</p>
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -156,7 +219,7 @@ export default function BlogPage() {
                                 >
                                     <div className="flex items-center justify-between mb-4">
                                         <span className="text-primary text-xs font-bold uppercase tracking-widest">{post.category}</span>
-                                        <span className="text-dark/40 text-xs">{post.readTime} baca</span>
+                                        <span className="text-dark/40 text-xs">{post.readTime} {t("blog_min_read")}</span>
                                     </div>
                                     <h3 className="font-bold text-dark text-lg leading-snug mb-3 group-hover:text-primary transition-colors">
                                         {post.title}
@@ -164,7 +227,7 @@ export default function BlogPage() {
                                     <p className="text-dark/55 text-sm leading-relaxed mb-4 line-clamp-3">{post.excerpt}</p>
                                     <div className="flex items-center justify-between">
                                         <span className="text-dark/40 text-xs">{post.date}</span>
-                                        <span className="text-primary text-sm font-semibold">Baca →</span>
+                                        <span className="text-primary text-sm font-semibold">{t("read_more")}</span>
                                     </div>
                                 </Link>
                             ))}
@@ -176,13 +239,13 @@ export default function BlogPage() {
             {/* ===== NEWSLETTER ===== */}
             <section className="bg-primary py-16">
                 <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-3 tracking-tight">Dapatkan Insights Terbaru</h2>
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-3 tracking-tight">{t("blog_newsletter_title")}</h2>
                     <p className="text-white/60 text-sm mb-8">
-                        Atau langsung konsultasikan kebutuhan bisnis Anda dengan tim kami!
+                        {t("blog_newsletter_desc")}
                     </p>
                     <a href={WA_URL} target="_blank" rel="noopener noreferrer"
                         className="inline-block bg-accent text-dark px-8 py-4 rounded-xl font-bold hover:bg-amber-400 transition-colors">
-                        💬 Konsultasi Gratis via WhatsApp
+                        {t("btn_wa")}
                     </a>
                 </div>
             </section>

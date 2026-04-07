@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useLang } from "@/components/LanguageContext";
 
 const WA_URL = "https://wa.me/6285820122323?text=Halo%20Afbenesia%2C%20saya%20ingin%20konsultasi%20mengenai%20layanan%20Anda.";
 

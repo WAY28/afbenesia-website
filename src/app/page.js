@@ -1,47 +1,20 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
+import { useLang } from "@/components/LanguageContext";
 
 const WA_URL = "https://wa.me/6285820122323?text=Halo%20Afbenesia%2C%20saya%20ingin%20konsultasi%20mengenai%20layanan%20Anda.";
 
-const stats = [
-    { value: "100+", label: "Klien Puas" },
-    { value: "98%", label: "Tingkat Kepuasan" },
-    { value: "3+", label: "Tahun Pengalaman" },
-    { value: "200%", label: "Rata-rata Kenaikan Omset" },
+const partners = [
+    { name: "KemenkopUKM", abbr: "KemenKop\nUKM" },
+    { name: "PT Maju Bersama", abbr: "PT Maju\nBersama" },
+    { name: "Dinas Perindustrian Jombang", abbr: "Dinas\nJombang" },
+    { name: "Startup X", abbr: "Startup X" },
+    { name: "CoffeeHouse", abbr: "Coffee\nHouse" },
+    { name: "Toko Nusantara", abbr: "Toko\nNusantara" },
 ];
 
-const services = [
-    {
-        icon: "🤖",
-        title: "AI Digital Strategy",
-        desc: "Strategi digital berbasis AI yang disesuaikan dengan kebutuhan unik bisnis Anda untuk hasil yang terukur dan berkelanjutan.",
-        href: "/services/ai-digital-strategy",
-        tag: "Terpopuler",
-    },
-    {
-        icon: "🎯",
-        title: "Business Coaching",
-        desc: "Program coaching intensif untuk mengidentifikasi peluang dan mengatasi tantangan bisnis Anda bersama mentor berpengalaman.",
-        href: "/services/business-coaching",
-        tag: null,
-    },
-    {
-        icon: "📢",
-        title: "Digital Marketing",
-        desc: "Kampanye pemasaran digital efektif untuk meningkatkan visibilitas, engagement, dan konversi bisnis Anda.",
-        href: "/services/digital-marketing",
-        tag: null,
-    },
-    {
-        icon: "🖥️",
-        title: "Virtual Assistant",
-        desc: "Dukungan administrasi profesional agar Anda fokus penuh pada hal yang paling penting untuk pertumbuhan bisnis.",
-        href: "/services/virtual-assistant",
-        tag: null,
-    },
-];
-
-const testimonials = [
+const testimonialsId = [
     {
         name: "Budi Santoso",
         role: "CEO PT Maju Jaya",
@@ -65,25 +38,67 @@ const testimonials = [
     },
 ];
 
-const partners = [
-    { name: "KemenkopUKM", abbr: "KemenKop\nUKM" },
-    { name: "PT Maju Bersama", abbr: "PT Maju\nBersama" },
-    { name: "Dinas Perindustrian Jombang", abbr: "Dinas\nJombang" },
-    { name: "Startup X", abbr: "Startup X" },
-    { name: "CoffeeHouse", abbr: "Coffee\nHouse" },
-    { name: "Toko Nusantara", abbr: "Toko\nNusantara" },
-];
-
-const whyUs = [
-    "Strategi AI yang disesuaikan, bukan template generic",
-    "Tim yang berpengalaman & memahami pasar Indonesia",
-    "Pendampingan penuh dari awal hingga hasil terukur",
-    "Laporan transparan & komunikasi aktif setiap saat",
-    "Penghargaan Top 6 KemenkopUKM bidang Teknologi",
-    "Rekam jejak terbukti: 100+ klien sukses se-Indonesia",
+const testimonialsEn = [
+    {
+        name: "Budi Santoso",
+        role: "CEO PT Maju Jaya",
+        text: "Afbenesia helped us achieve a 200% sales increase in 6 months. Their humanized AI approach is highly effective and feels truly personal.",
+        avatar: "BS",
+        rating: 5,
+    },
+    {
+        name: "Sarah Wijaya",
+        role: "Founder Kreatif Indah",
+        text: "The coaching services from Afbenesia completely changed how we run our business. The strategies given are very clear and actionable.",
+        avatar: "SW",
+        rating: 5,
+    },
+    {
+        name: "Diana",
+        role: "COO Startup X",
+        text: "Their virtual assistant service is a game-changer for our business. Our operational efficiency has increased dramatically since we started working together.",
+        avatar: "DI",
+        rating: 5,
+    },
 ];
 
 export default function HomePage() {
+    const { lang, t } = useLang();
+
+    const services = t("services_list").slice(0, 4).map((s) => ({
+        icon: s.icon,
+        title: s.title,
+        desc: s.desc,
+        href: `/services/${s.id}`,
+        tag: s.tag,
+    }));
+
+    const statsData = [
+        { value: "100+", label: t("stat_clients") },
+        { value: "98%", label: t("stat_satisfaction") },
+        { value: "3+", label: t("stat_experience") },
+        { value: "200%", label: t("stat_growth") },
+    ];
+
+    const whyUs = t("why_points");
+    const testimonials = lang === "en" ? testimonialsEn : testimonialsId;
+
+    const aboutCardsId = [
+        { num: "100+", sub: "Klien Aktif", bg: "bg-primary", text: "text-white" },
+        { num: "3+", sub: "Tahun Berpengalaman", bg: "bg-accent", text: "text-dark" },
+        { num: "200%", sub: "Avg. Kenaikan Omset", bg: "bg-dark", text: "text-white" },
+        { num: "98%", sub: "Tingkat Kepuasan", bg: "bg-white border border-[#E2E8F0]", text: "text-dark" },
+    ];
+
+    const aboutCardsEn = [
+        { num: "100+", sub: "Active Clients", bg: "bg-primary", text: "text-white" },
+        { num: "3+", sub: "Years of Experience", bg: "bg-accent", text: "text-dark" },
+        { num: "200%", sub: "Avg. Revenue Growth", bg: "bg-dark", text: "text-white" },
+        { num: "98%", sub: "Satisfaction Rate", bg: "bg-white border border-[#E2E8F0]", text: "text-dark" },
+    ];
+
+    const aboutCards = lang === "en" ? aboutCardsEn : aboutCardsId;
+
     return (
         <div className="font-sans">
 
@@ -101,23 +116,23 @@ export default function HomePage() {
                     <div className="max-w-3xl">
                         <div className="inline-flex items-center gap-2 border border-white/20 bg-white/5 text-white/80 text-xs font-semibold px-4 py-2 rounded-full mb-8 tracking-widest uppercase">
                             <span className="w-1.5 h-1.5 bg-accent rounded-full" />
-                            Humanized AI for Business Growth
+                            {t("hero_badge")}
                         </div>
                         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight mb-6 text-white">
-                            Transformasi Bisnis
-                            <span className="block text-primary mt-1">Anda Bersama AI</span>
+                            {t("hero_title")}
+                            <span className="block text-primary mt-1">{t("hero_title2")}</span>
                         </h1>
                         <p className="text-white/70 text-lg sm:text-xl max-w-xl mb-10 leading-relaxed">
-                            Kami menggabungkan kecerdasan buatan dengan sentuhan manusiawi untuk pertumbuhan bisnis yang berkelanjutan dan terukur di Indonesia.
+                            {t("hero_desc")}
                         </p>
                         <div className="flex flex-col sm:flex-row gap-3">
                             <a href={WA_URL} target="_blank" rel="noopener noreferrer"
                                 className="bg-accent text-dark px-8 py-4 rounded-xl font-bold text-base hover:bg-amber-400 transition-colors text-center">
-                                💬 Konsultasi Gratis Sekarang
+                                {t("hero_cta1")}
                             </a>
                             <Link href="/services"
                                 className="border border-white/25 text-white/80 hover:bg-white/10 hover:text-white px-8 py-4 rounded-xl font-semibold text-base transition-all text-center">
-                                Lihat Layanan Kami →
+                                {t("hero_cta2")}
                             </Link>
                         </div>
                     </div>
@@ -129,7 +144,7 @@ export default function HomePage() {
             <section className="bg-cream py-14">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 md:divide-x md:divide-dark/10">
-                        {stats.map((stat) => (
+                        {statsData.map((stat) => (
                             <div key={stat.label} className="text-center px-6 py-4">
                                 <p className="text-4xl sm:text-5xl font-extrabold text-primary mb-1 tracking-tight">{stat.value}</p>
                                 <p className="text-dark/60 text-sm font-medium">{stat.label}</p>
@@ -140,58 +155,39 @@ export default function HomePage() {
             </section>
 
             {/* ===== PARTNERS ===== */}
-            <section className="bg-white py-16 border-b border-[#E2E8F0]">
+            <section className="py-16 bg-white border-b border-[#E2E8F0]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-10">
-                        <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-2">Dipercaya Oleh</span>
-                        <h2 className="text-2xl sm:text-3xl font-extrabold text-dark tracking-tight">
-                            Klien & Mitra yang Telah Bekerja Sama
-                        </h2>
-                        <p className="text-dark/50 text-sm mt-2 max-w-md mx-auto">
-                            Kami bangga bermitra dengan berbagai instansi dan perusahaan terkemuka di Indonesia.
-                        </p>
+                        <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-3">{t("partners_badge")}</span>
+                        <h2 className="text-2xl sm:text-3xl font-extrabold text-dark tracking-tight">{t("partners_title")}</h2>
+                        <p className="text-dark/55 text-sm mt-3 max-w-xl mx-auto">{t("partners_desc")}</p>
                     </div>
-                    <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
-                        {partners.map((partner) => (
-                            <div key={partner.name} className="flex flex-col items-center justify-center p-4 rounded-2xl border border-[#E2E8F0] hover:border-primary/30 hover:shadow-md transition-all group bg-cream/40">
-                                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-2 group-hover:bg-primary/20 transition-colors">
-                                    <span className="text-primary font-bold text-[10px] text-center leading-tight whitespace-pre-line">{partner.abbr}</span>
-                                </div>
-                                <span className="text-dark/60 text-[10px] font-medium text-center leading-tight">{partner.name}</span>
+                    <div className="flex flex-wrap justify-center gap-4">
+                        {partners.map((p) => (
+                            <div key={p.name} className="flex items-center justify-center w-28 h-16 bg-cream rounded-xl border border-[#E2E8F0] px-3">
+                                <span className="text-dark/50 text-xs font-semibold text-center whitespace-pre-line leading-tight">{p.abbr}</span>
                             </div>
                         ))}
-                    </div>
-                    <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <div className="flex items-center gap-3 bg-accent/10 border border-accent/30 px-5 py-3 rounded-xl">
-                            <span className="text-2xl">🏆</span>
-                            <div>
-                                <p className="font-bold text-dark text-sm">Top 6 KemenkopUKM</p>
-                                <p className="text-dark/50 text-xs">Program Pendampingan Usaha Bidang Teknologi</p>
-                            </div>
+                        <div className="flex items-center justify-center w-28 h-16 bg-primary/5 rounded-xl border border-primary/20 px-3">
+                            <span className="text-primary text-xs font-bold text-center">🏆 {t("award1_title")}</span>
                         </div>
-                        <div className="flex items-center gap-3 bg-primary/5 border border-primary/20 px-5 py-3 rounded-xl">
-                            <span className="text-2xl">🇮🇩</span>
-                            <div>
-                                <p className="font-bold text-dark text-sm">100+ Klien se-Indonesia</p>
-                                <p className="text-dark/50 text-xs">Dari Jombang hingga seluruh nusantara</p>
-                            </div>
+                        <div className="flex items-center justify-center w-28 h-16 bg-accent/20 rounded-xl border border-accent/30 px-3">
+                            <span className="text-dark text-xs font-bold text-center">{t("award2_title")}</span>
                         </div>
                     </div>
                 </div>
             </section>
 
             {/* ===== SERVICES ===== */}
-            <section className="py-24 bg-white" id="services">
+            <section className="py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-14 gap-4">
-                        <div>
-                            <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-3">Layanan Kami</span>
-                            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-dark leading-tight tracking-tight">
-                                Solusi Tepat untuk<br />Pertumbuhan Bisnis
-                            </h2>
-                        </div>
-                        <p className="text-dark/50 max-w-xs text-sm leading-relaxed md:text-right">
-                            Layanan komprehensif yang dirancang khusus untuk kebutuhan bisnis Anda di era digital.
+                    <div className="text-center mb-14">
+                        <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-3">{t("services_badge")}</span>
+                        <h2 className="text-3xl sm:text-4xl font-extrabold text-dark tracking-tight">
+                            {t("services_title")}<br /><span className="text-primary">{t("services_title2")}</span>
+                        </h2>
+                        <p className="text-dark/55 text-sm mt-4 max-w-xl mx-auto leading-relaxed">
+                            {t("services_desc")}
                         </p>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -215,14 +211,14 @@ export default function HomePage() {
                                     {service.desc}
                                 </p>
                                 <div className={`mt-6 text-sm font-semibold flex items-center gap-1 ${i === 0 ? "text-accent" : "text-primary"}`}>
-                                    Pelajari lebih lanjut →
+                                    {t("btn_learn_more")}
                                 </div>
                             </Link>
                         ))}
                     </div>
                     <div className="text-center mt-10">
                         <Link href="/services" className="inline-block border-2 border-dark text-dark hover:bg-dark hover:text-white px-7 py-3.5 rounded-xl font-bold text-sm transition-all">
-                            Lihat Semua Layanan
+                            {t("btn_all_services")}
                         </Link>
                     </div>
                 </div>
@@ -233,12 +229,12 @@ export default function HomePage() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col lg:flex-row items-center gap-12">
                         <div className="lg:w-1/2">
-                            <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-3">Mengapa Afbenesia?</span>
+                            <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-3">{t("why_badge")}</span>
                             <h2 className="text-3xl sm:text-4xl font-extrabold text-dark leading-tight tracking-tight mb-5">
-                                AI yang Terasa<br />Seperti Manusia
+                                {t("why_title")}<br />{t("why_title2")}
                             </h2>
                             <p className="text-dark/55 leading-relaxed mb-6 text-sm sm:text-base">
-                                Banyak layanan AI terasa dingin dan impersonal. Kami berbeda — setiap strategi diracik dengan pemahaman mendalam tentang bisnis dan budaya lokal Indonesia.
+                                {t("why_desc")}
                             </p>
                             <ul className="space-y-3">
                                 {whyUs.map((item) => (
@@ -250,18 +246,13 @@ export default function HomePage() {
                             </ul>
                             <div className="mt-8">
                                 <Link href="/about" className="inline-block bg-primary text-white px-6 py-3 rounded-xl font-bold text-sm hover:bg-primary-dark transition-colors">
-                                    Kenali Kami Lebih Jauh →
+                                    {t("why_know_more")}
                                 </Link>
                             </div>
                         </div>
                         <div className="lg:w-1/2 w-full">
                             <div className="grid grid-cols-2 gap-4">
-                                {[
-                                    { num: "100+", sub: "Klien Aktif", bg: "bg-primary", text: "text-white" },
-                                    { num: "3+", sub: "Tahun Berpengalaman", bg: "bg-accent", text: "text-dark" },
-                                    { num: "200%", sub: "Avg. Kenaikan Omset", bg: "bg-dark", text: "text-white" },
-                                    { num: "98%", sub: "Tingkat Kepuasan", bg: "bg-white border border-[#E2E8F0]", text: "text-dark" },
-                                ].map((card) => (
+                                {aboutCards.map((card) => (
                                     <div key={card.num} className={`${card.bg} ${card.text} p-6 rounded-2xl`}>
                                         <p className="text-3xl font-extrabold tracking-tight">{card.num}</p>
                                         <p className={`text-xs font-medium mt-1 ${card.text === "text-white" ? "opacity-60" : "opacity-50"}`}>{card.sub}</p>
@@ -277,23 +268,23 @@ export default function HomePage() {
             <section className="py-24 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-14">
-                        <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-3">Testimoni Klien</span>
-                        <h2 className="text-3xl sm:text-4xl font-extrabold text-dark tracking-tight">Apa Kata Klien Kami?</h2>
+                        <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-3">{t("testi_badge")}</span>
+                        <h2 className="text-3xl sm:text-4xl font-extrabold text-dark tracking-tight">{t("testi_title")}</h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {testimonials.map((t, i) => (
-                            <div key={t.name} className={`p-7 rounded-2xl border transition-all ${i === 1 ? "bg-dark text-white border-dark" : "bg-cream border-cream"}`}>
+                        {testimonials.map((testi, i) => (
+                            <div key={testi.name} className={`p-7 rounded-2xl border transition-all ${i === 1 ? "bg-dark text-white border-dark" : "bg-cream border-cream"}`}>
                                 <div className="flex gap-0.5 mb-5">
-                                    {Array.from({ length: t.rating }).map((_, j) => (
+                                    {Array.from({ length: testi.rating }).map((_, j) => (
                                         <span key={j} className="text-accent text-sm">★</span>
                                     ))}
                                 </div>
-                                <p className={`text-sm leading-relaxed mb-7 ${i === 1 ? "text-white/70" : "text-dark/65"}`}>"{t.text}"</p>
+                                <p className={`text-sm leading-relaxed mb-7 ${i === 1 ? "text-white/70" : "text-dark/65"}`}>"{testi.text}"</p>
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs flex-shrink-0">{t.avatar}</div>
+                                    <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs flex-shrink-0">{testi.avatar}</div>
                                     <div>
-                                        <p className={`font-bold text-sm ${i === 1 ? "text-white" : "text-dark"}`}>{t.name}</p>
-                                        <p className={`text-xs ${i === 1 ? "text-white/50" : "text-dark/45"}`}>{t.role}</p>
+                                        <p className={`font-bold text-sm ${i === 1 ? "text-white" : "text-dark"}`}>{testi.name}</p>
+                                        <p className={`text-xs ${i === 1 ? "text-white/50" : "text-dark/45"}`}>{testi.role}</p>
                                     </div>
                                 </div>
                             </div>
@@ -305,21 +296,21 @@ export default function HomePage() {
             {/* ===== CTA ===== */}
             <section className="bg-primary py-20">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <span className="text-white/50 text-xs font-bold uppercase tracking-[0.2em] block mb-4">Mulai Sekarang</span>
+                    <span className="text-white/50 text-xs font-bold uppercase tracking-[0.2em] block mb-4">{t("cta_badge")}</span>
                     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-5 tracking-tight leading-tight">
-                        Siap Mengubah<br />Bisnis Anda?
+                        {t("cta_title")}<br />{t("cta_title2")}
                     </h2>
                     <p className="text-white/60 text-base sm:text-lg mb-10 max-w-xl mx-auto">
-                        Dapatkan konsultasi gratis dan temukan bagaimana Afbenesia dapat membantu pertumbuhan bisnis Anda secara nyata.
+                        {t("cta_desc")}
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
                         <a href={WA_URL} target="_blank" rel="noopener noreferrer"
                             className="bg-accent text-dark px-8 py-4 rounded-xl font-bold text-base hover:bg-amber-400 transition-colors">
-                            💬 Hubungi Kami via WhatsApp
+                            {t("cta_btn1")}
                         </a>
                         <Link href="/services"
                             className="border-2 border-white/30 text-white hover:bg-white/10 px-8 py-4 rounded-xl font-semibold text-base transition-all">
-                            Lihat Paket Layanan
+                            {t("cta_btn2")}
                         </Link>
                     </div>
                 </div>

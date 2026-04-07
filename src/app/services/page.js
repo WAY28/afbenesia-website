@@ -1,102 +1,16 @@
+"use client";
 import Link from "next/link";
+import { useLang } from "@/components/LanguageContext";
 
 const WA_URL = "https://wa.me/6285820122323?text=Halo%20Afbenesia%2C%20saya%20ingin%20konsultasi%20mengenai%20layanan%20Anda.";
 
-const services = [
-    {
-        id: "ai-digital-strategy",
-        icon: "🤖",
-        title: "AI Digital Strategy Consulting",
-        desc: "Kami menganalisis kebutuhan bisnis Anda secara mendalam dan mengembangkan strategi digital yang didukung oleh AI.",
-        features: [
-            "Analisis pasar & kompetitor berbasis data",
-            "Strategi SEO & SEM yang teroptimasi AI",
-            "Perencanaan kampanye iklan digital",
-            "Dashboard monitoring & reporting real-time",
-            "Optimasi konversi berbasis AI",
-        ],
-        tag: "Terpopuler",
-    },
-    {
-        id: "business-coaching",
-        icon: "🎯",
-        title: "Business Coaching & Mentorship",
-        desc: "Program coaching intensif untuk menghadapi tantangan bisnis dengan lebih percaya diri.",
-        features: [
-            "Sesi coaching 1-on-1 dengan mentor berpengalaman",
-            "Analisis kinerja bisnis berkala",
-            "Perumusan strategi jangka pendek & panjang",
-            "Identifikasi peluang & mitigasi risiko",
-            "Mindset & leadership development",
-        ],
-        tag: null,
-    },
-    {
-        id: "virtual-assistant",
-        icon: "🖥️",
-        title: "Virtual Assistant Services",
-        desc: "Dukungan administrasi yang efisien dan profesional agar Anda fokus pada hal terpenting.",
-        features: [
-            "Manajemen email & komunikasi bisnis",
-            "Pengaturan jadwal & kalender",
-            "Pengelolaan media sosial",
-            "Riset & pengumpulan data",
-            "Pembuatan laporan & presentasi",
-        ],
-        tag: null,
-    },
-    {
-        id: "digital-marketing",
-        icon: "📢",
-        title: "Digital Marketing Campaigns",
-        desc: "Kampanye pemasaran digital yang efektif untuk meningkatkan konversi dan penjualan bisnis.",
-        features: [
-            "Google Ads & Meta Ads management",
-            "Konten marketing & copywriting",
-            "Email marketing campaigns",
-            "Social media management",
-            "Analitik & optimasi kampanye",
-        ],
-        tag: null,
-    },
-    {
-        id: "custom-ai",
-        icon: "⚙️",
-        title: "Custom AI Solutions",
-        desc: "Pengembangan solusi AI kustom seperti chatbot, sistem rekomendasi, dan analitik prediktif.",
-        features: [
-            "Chatbot AI untuk customer service",
-            "Sistem rekomendasi produk",
-            "Analitik prediktif & forecasting",
-            "Otomasi proses bisnis berbasis AI",
-            "Integrasi dengan sistem existing",
-        ],
-        tag: "Baru",
-    },
-    {
-        id: "email-marketing",
-        icon: "✉️",
-        title: "Email Marketing Strategy",
-        desc: "Strategi kampanye email yang personal dan tertarget untuk membangun loyalitas pelanggan.",
-        features: [
-            "Segmentasi audiens yang tepat",
-            "Desain email yang menarik & responsif",
-            "Automation & drip campaign",
-            "A/B testing & optimasi",
-            "Laporan performa komprehensif",
-        ],
-        tag: null,
-    },
-];
-
-const process = [
-    { step: "01", title: "Konsultasi Gratis", desc: "Kami memahami kebutuhan dan tujuan bisnis Anda melalui sesi konsultasi awal." },
-    { step: "02", title: "Analisis & Strategi", desc: "Tim kami menganalisis situasi bisnis dan merancang strategi yang tepat sasaran." },
-    { step: "03", title: "Implementasi", desc: "Eksekusi strategi dengan monitoring ketat dan penyesuaian berkala." },
-    { step: "04", title: "Evaluasi & Optimasi", desc: "Pengukuran hasil, pelaporan, dan optimasi berkelanjutan untuk hasil terbaik." },
-];
-
 export default function ServicesPage() {
+    const { t } = useLang();
+
+    const services = t("services_list");
+
+    const process = t("services_process_steps");
+
     return (
         <div className="font-sans">
 
@@ -104,13 +18,13 @@ export default function ServicesPage() {
             <section className="bg-dark text-white py-24 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-1/3 h-full bg-primary opacity-[0.06] skew-x-[-8deg] translate-x-16 pointer-events-none" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-4">Layanan Kami</span>
+                    <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-4">{t("services_page_badge")}</span>
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight mb-6 max-w-3xl">
-                        Solusi Digital
-                        <span className="block text-primary">Inovatif & Terukur</span>
+                        {t("services_page_title")}
+                        <span className="block text-primary">{t("services_page_title2")}</span>
                     </h1>
                     <p className="text-white/60 text-lg max-w-2xl leading-relaxed">
-                        Layanan terintegrasi yang dirancang untuk pertumbuhan bisnis Anda yang berkelanjutan di era digital.
+                        {t("services_page_desc")}
                     </p>
                 </div>
             </section>
@@ -139,6 +53,9 @@ export default function ServicesPage() {
                                 <p className={`text-sm leading-relaxed mb-5 ${i === 0 ? "text-white/70" : "text-dark/60"}`}>
                                     {service.desc}
                                 </p>
+                                <p className={`text-xs font-bold uppercase tracking-widest mb-3 ${i === 0 ? "text-white/50" : "text-primary"}`}>
+                                    {t("services_what_you_get")}
+                                </p>
                                 <ul className="space-y-2 mb-6">
                                     {service.features.map((feature) => (
                                         <li key={feature} className="flex items-start gap-2">
@@ -158,7 +75,7 @@ export default function ServicesPage() {
                                                 : "bg-primary/10 text-primary hover:bg-primary hover:text-white"
                                         }`}
                                     >
-                                        Detail Layanan →
+                                        {t("services_detail_btn")}
                                     </Link>
                                     <a
                                         href={`${WA_URL.replace("layanan Anda", `layanan ${service.title}`)}`}
@@ -170,7 +87,7 @@ export default function ServicesPage() {
                                                 : "bg-dark text-white hover:bg-dark/80"
                                         }`}
                                     >
-                                        💬 Diskusikan Kebutuhan
+                                        {t("services_discuss_btn")}
                                     </a>
                                 </div>
                             </div>
@@ -183,8 +100,8 @@ export default function ServicesPage() {
             <section className="py-20 bg-cream">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-14">
-                        <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-3">Cara Kerja Kami</span>
-                        <h2 className="text-3xl sm:text-4xl font-extrabold text-dark tracking-tight">Proses yang Sederhana & Efektif</h2>
+                        <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-3">{t("services_process_badge")}</span>
+                        <h2 className="text-3xl sm:text-4xl font-extrabold text-dark tracking-tight">{t("services_process_title")}</h2>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {process.map((p) => (
@@ -203,11 +120,11 @@ export default function ServicesPage() {
             {/* ===== CTA ===== */}
             <section className="bg-primary py-16">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4 tracking-tight">Siap Mengembangkan Bisnis Anda?</h2>
-                    <p className="text-white/60 mb-8">Hubungi kami hari ini untuk konsultasi gratis — langsung via WhatsApp!</p>
+                    <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4 tracking-tight">{t("services_cta_title")}</h2>
+                    <p className="text-white/60 mb-8">{t("services_cta_desc")}</p>
                     <a href={WA_URL} target="_blank" rel="noopener noreferrer"
                         className="inline-block bg-accent text-dark px-8 py-4 rounded-xl font-bold hover:bg-amber-400 transition-colors">
-                        💬 Hubungi Kami via WhatsApp
+                        {t("btn_wa")}
                     </a>
                 </div>
             </section>

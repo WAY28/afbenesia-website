@@ -1,4 +1,7 @@
-import Anthropic from "@anthropic-ai/sdk";
+// ============================================================
+// FILE: app/api/chat/route.js
+// Menggunakan Groq API (model: llama-3.3-70b-versatile)
+// ============================================================
 
 const SYSTEM_PROMPT = `Kamu adalah asisten virtual resmi Afbenesia bernama "Afbi". Kamu ramah, profesional, dan memahami konteks bisnis Indonesia.
 
@@ -148,51 +151,86 @@ A: Kunjungi linktr.ee/lpk.afbenesia atau hubungi WhatsApp +62 858 2012 2323.
 - Panggil dirimu "Afbi" jika ditanya nama
 - Jika ada pertanyaan yang benar-benar di luar Afbenesia, jawab singkat lalu kembalikan ke topik Afbenesia`;
 
+// ──────────────────────────────────────────────
+// POST /api/chat
+// ──────────────────────────────────────────────
 export async function POST(request) {
-    // Log untuk debug — hapus setelah chatbot berfungsi normal
     console.log("[Chat API] Request received");
-    console.log("[Chat API] ANTHROPIC_API_KEY exists:", !!process.env.ANTHROPIC_API_KEY);
+    console.log("[Chat API] GROQ_API_KEY exists:", !!process.env.GROQ_API_KEY);
 
     try {
         const body = await request.json();
         const { messages } = body;
 
+        // Validasi payload
         if (!messages || !Array.isArray(messages) || messages.length === 0) {
             console.error("[Chat API] Invalid messages payload");
             return Response.json({ error: "Invalid messages" }, { status: 400 });
         }
 
-        const apiKey = process.env.ANTHROPIC_API_KEY;
+        // Ambil API key dari environment variable
+        const apiKey = process.env.GROQ_API_KEY;
         if (!apiKey) {
-            console.error("[Chat API] ANTHROPIC_API_KEY is not set!");
+            console.error("[Chat API] GROQ_API_KEY is not set!");
             return Response.json(
                 { error: "Server configuration error: API key missing", reply: null },
                 { status: 500 }
             );
         }
 
-        const client = new Anthropic({ apiKey });
-
-        // Filter hanya role user dan assistant, pastikan content tidak kosong
+        // Filter & bersihkan messages
         const filteredMessages = messages
-            .filter(m => m.role === "user" || m.role === "assistant")
-            .filter(m => typeof m.content === "string" && m.content.trim() !== "")
-            .map(m => ({ role: m.role, content: m.content.trim() }));
+            .filter((m) => m.role === "user" || m.role === "assistant")
+            .filter((m) => typeof m.content === "string" && m.content.trim() !== "")
+            .map((m) => ({ role: m.role, content: m.content.trim() }));
 
         if (filteredMessages.length === 0) {
             return Response.json({ error: "No valid messages" }, { status: 400 });
         }
 
-        console.log("[Chat API] Sending", filteredMessages.length, "messages to Claude");
+        console.log("[Chat API] Sending", filteredMessages.length, "messages to Groq");
 
-        const response = await client.messages.create({
-            model: "claude-haiku-4-5",
-            max_tokens: 512,
-            system: SYSTEM_PROMPT,
-            messages: filteredMessages,
+        // Panggil Groq API (format sama dengan OpenAI)
+        const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${apiKey}`,
+            },
+            body: JSON.stringify({
+                model: "llama-3.3-70b-versatile",
+                max_tokens: 512,
+                temperature: 0.7,
+                messages: [
+                    // System prompt sebagai pesan pertama
+                    { role: "system", content: SYSTEM_PROMPT },
+                    // Riwayat percakapan
+                    ...filteredMessages,
+                ],
+            }),
         });
 
-        const reply = response.content?.[0]?.text ?? "Maaf, terjadi kesalahan. Silakan coba lagi.";
+        // Tangani error dari Groq
+        if (!groqRes.ok) {
+            const errBody = await groqRes.text();
+            console.error("[Chat API] Groq error:", groqRes.status, errBody);
+            return Response.json(
+                {
+                    error: "Groq API error",
+                    detail: errBody,
+                    reply: null,
+                },
+                { status: 500 }
+            );
+        }
+
+        const groqData = await groqRes.json();
+
+        // Ambil teks balasan dari struktur response Groq
+        const reply =
+            groqData?.choices?.[0]?.message?.content ??
+            "Maaf, terjadi kesalahan. Silakan coba lagi.";
+
         console.log("[Chat API] Reply received, length:", reply.length);
 
         return Response.json({ reply });
@@ -201,7 +239,6 @@ export async function POST(request) {
         console.error("[Chat API] Error:", error?.message ?? error);
         console.error("[Chat API] Error type:", error?.constructor?.name);
 
-        // Kembalikan error detail untuk debugging (bisa dihapus di production)
         return Response.json(
             {
                 error: "Internal server error",

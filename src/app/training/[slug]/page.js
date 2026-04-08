@@ -260,11 +260,11 @@ export default function TrainingDetailPage() {
                         </a>
                         <a href={waMsg} target="_blank" rel="noopener noreferrer"
                             className="inline-flex items-center justify-center border border-white/25 text-white/80 hover:bg-white/10 px-7 py-3.5 rounded-xl font-semibold transition-all">
-                            💬 {lang === "id" ? "Tanya Info Program" : "Ask Program Info"}
+                            💬 {t("detail_ask_info_btn")}
                         </a>
                         <Link href="/training"
                             className="inline-flex items-center justify-center border border-white/15 text-white/50 hover:text-white px-7 py-3.5 rounded-xl font-semibold transition-all text-sm">
-                            {t("detail_back")}
+                            {t("back_training")}
                         </Link>
                     </div>
                 </div>
@@ -279,7 +279,7 @@ export default function TrainingDetailPage() {
                             { label: t("detail_level_label"), val: lang === "id" ? meta.level.id : meta.level.en },
                             { label: t("detail_cert_label"), val: meta.cert },
                             { label: t("detail_method_label"), val: lang === "id" ? meta.method.id : meta.method.en },
-                            { label: lang === "id" ? "Jadwal" : "Schedule", val: lang === "id" ? meta.schedule.id : meta.schedule.en },
+                            { label: t("detail_schedule_label"), val: lang === "id" ? meta.schedule.id : meta.schedule.en },
                             { label: t("training_price"), val: lang === "id" ? meta.price.id : meta.price.en },
                         ].map((item, i) => (
                             <div key={i} className="reveal">
@@ -303,14 +303,14 @@ export default function TrainingDetailPage() {
                         </div>
                         <div className="lg:w-1/3 reveal-right">
                             <div className="bg-primary rounded-2xl p-6 text-white sticky top-24">
-                                <p className="font-bold text-lg mb-4">{lang === "id" ? "Tertarik program ini?" : "Interested in this program?"}</p>
+                                <p className="font-bold text-lg mb-4">{t("detail_interested_sidebar")}</p>
                                 <a href="https://linktr.ee/lpk.afbenesia" target="_blank" rel="noopener noreferrer"
                                     className="block bg-accent text-dark text-center py-3 rounded-xl font-bold hover:bg-amber-400 transition-all hover:-translate-y-0.5 mb-3">
                                     🎓 {t("register_now")}
                                 </a>
                                 <a href={waMsg} target="_blank" rel="noopener noreferrer"
                                     className="block border border-white/30 text-white text-center py-3 rounded-xl font-bold hover:bg-white/10 transition-all text-sm">
-                                    💬 {lang === "id" ? "Tanya Info" : "Ask Info"}
+                                    💬 {t("detail_ask_info")}
                                 </a>
                             </div>
                         </div>
@@ -322,7 +322,7 @@ export default function TrainingDetailPage() {
             <section className="py-16 bg-cream">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-12 reveal">
-                        <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-3">{lang === "id" ? "Manfaat" : "Benefits"}</span>
+                        <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-3">{t("detail_benefits_badge")}</span>
                         <h2 className="text-3xl font-extrabold text-dark tracking-tight">{t("detail_benefits")}</h2>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -342,7 +342,7 @@ export default function TrainingDetailPage() {
             <section className="py-16 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-12 reveal">
-                        <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-3">{lang === "id" ? "Silabus" : "Syllabus"}</span>
+                        <span className="text-primary text-xs font-bold uppercase tracking-[0.2em] block mb-3">{t("detail_syllabus_badge")}</span>
                         <h2 className="text-3xl font-extrabold text-dark tracking-tight">{t("detail_curriculum")}</h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

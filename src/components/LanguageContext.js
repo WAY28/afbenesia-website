@@ -200,6 +200,13 @@ export const translations = {
         detail_ask_price: "Tanya Harga →",
         detail_slot: "Amankan slot Anda sekarang sebelum penuh!",
         detail_ask_first: "Tanya Info Dulu",
+        detail_back: "← Lihat Semua Program",
+        detail_benefits_badge: "Manfaat",
+        detail_syllabus_badge: "Silabus",
+        detail_investment_badge: "Investasi",
+        detail_ask_info: "Tanya Info",
+        detail_ask_info_btn: "Tanya Info Program",
+        detail_interested_sidebar: "Tertarik program ini?",
 
         // ── CONTACT ──
         contact_badge: "Hubungi Kami",
@@ -429,6 +436,13 @@ export const translations = {
         detail_ask_price: "Ask for Pricing →",
         detail_slot: "Secure your slot now before it fills up!",
         detail_ask_first: "Ask for Info First",
+        detail_back: "← View All Programs",
+        detail_benefits_badge: "Benefits",
+        detail_syllabus_badge: "Syllabus",
+        detail_investment_badge: "Investment",
+        detail_ask_info: "Ask Info",
+        detail_ask_info_btn: "Ask Program Info",
+        detail_interested_sidebar: "Interested in this program?",
 
         // ── CONTACT ──
         contact_badge: "Contact Us",
@@ -468,11 +482,19 @@ export function LanguageProvider({ children }) {
     useEffect(() => {
         const saved = localStorage.getItem("afbenesia-lang");
         if (saved === "en" || saved === "id") setLang(saved);
+        else {
+            // Fallback: baca dari cookie jika localStorage kosong
+            const cookie = document.cookie.split("; ").find(r => r.startsWith("afbenesia-lang="));
+            const cookieVal = cookie?.split("=")[1];
+            if (cookieVal === "en" || cookieVal === "id") setLang(cookieVal);
+        }
     }, []);
     const toggleLang = () => {
         const next = lang === "id" ? "en" : "id";
         setLang(next);
         localStorage.setItem("afbenesia-lang", next);
+        // Set cookie agar Server Components (service/portfolio detail) bisa membacanya
+        document.cookie = `afbenesia-lang=${next}; path=/; max-age=31536000; SameSite=Lax`;
     };
     const t = (key) => {
         const val = translations[lang]?.[key];

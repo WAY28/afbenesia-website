@@ -2,6 +2,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import AfbenesiaChatbot from "@/components/AfbenesiaChatbot";
 import { LanguageProvider } from "@/components/LanguageContext";
 
 export const metadata = {
@@ -10,7 +11,7 @@ export const metadata = {
         template: "%s | Afbenesia",
     },
     description: "Mitra terpercaya untuk transformasi digital, coaching bisnis, pelatihan, dan strategi AI di Indonesia.",
-    keywords: ["AI digital strategy", "business coaching", "digital marketing", "pelatihan digital", "Jombang", "Indonesia"],
+    keywords: ["AI digital strategy", "business coaching", "digital marketing", "pelatihan digital", "LPK Afbenesia", "Jombang", "Indonesia"],
     openGraph: {
         type: "website",
         locale: "id_ID",
@@ -30,12 +31,16 @@ export default function RootLayout({ children }) {
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
                 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
                 <link rel="icon" href="/afbenesia.jpg" type="image/jpeg" />
+                <link rel="apple-touch-icon" href="/afbenesia.jpg" />
             </head>
             <body className="font-sans antialiased bg-white text-dark">
                 <LanguageProvider>
                     <Navbar />
                     <main className="pt-16 page-enter">{children}</main>
+                    {/* WhatsApp button — kanan bawah */}
                     <WhatsAppButton />
+                    {/* Chatbot Afbi — kiri bawah */}
+                    <AfbenesiaChatbot />
                     <Footer />
                 </LanguageProvider>
                 <script dangerouslySetInnerHTML={{__html:`(function(){function r(){document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(function(e){if(e.getBoundingClientRect().top<window.innerHeight-60)e.classList.add('revealed');});}window.addEventListener('scroll',r,{passive:true});window.addEventListener('load',r);r();})();`}} />

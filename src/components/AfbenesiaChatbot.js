@@ -104,14 +104,28 @@ export default function AfbenesiaChatbot() {
                 }),
             });
 
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            // Coba parse response JSON dulu (ada detail error dari server)
+            let data = {};
+            try {
+                data = await res.json();
+            } catch {
+                // Response bukan JSON
+            }
 
-            const data = await res.json();
-            const reply = data.reply || (id ? "Maaf, terjadi kesalahan. Silakan coba lagi." : "Sorry, an error occurred. Please try again.");
+            if (!res.ok) {
+                // Log detail error dari server untuk debugging
+                console.error("[Chatbot] Server error:", res.status, data?.detail ?? data?.error ?? "Unknown");
+                throw new Error(`HTTP ${res.status}: ${data?.detail ?? data?.error ?? "Server error"}`);
+            }
+
+            const reply = data.reply || (id
+                ? "Maaf, terjadi kesalahan. Silakan coba lagi."
+                : "Sorry, an error occurred. Please try again.");
 
             setMessages(prev => [...prev, { role: "assistant", content: reply }]);
+
         } catch (err) {
-            console.error("Chat error:", err);
+            console.error("[Chatbot] Chat error:", err.message);
             setMessages(prev => [...prev, {
                 role: "assistant",
                 content: id
@@ -142,9 +156,7 @@ export default function AfbenesiaChatbot() {
     const renderContent = (content) => {
         const lines = content.split("\n");
         return lines.map((line, i) => {
-            // Bold: **text**
             const formatted = line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-            // Bullet
             if (line.startsWith("- ") || line.startsWith("• ")) {
                 return (
                     <div key={i} className="flex items-start gap-1.5 ml-1">
@@ -309,7 +321,6 @@ export default function AfbenesiaChatbot() {
                 aria-label={isOpen ? "Close chat" : "Open chat"}
                 className="fixed bottom-6 left-4 sm:left-6 z-[60] group flex items-center gap-0 hover:gap-2.5 bg-primary hover:bg-primary-dark text-white px-4 py-3.5 rounded-full shadow-lg transition-all duration-300 overflow-hidden"
             >
-                {/* Icon */}
                 {isOpen ? (
                     <svg className="w-5 h-5 fill-white flex-shrink-0" viewBox="0 0 24 24">
                         <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
@@ -319,12 +330,9 @@ export default function AfbenesiaChatbot() {
                         <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
                     </svg>
                 )}
-                {/* Hover label */}
                 <span className="max-w-0 group-hover:max-w-[6rem] overflow-hidden transition-all duration-300 text-sm font-bold whitespace-nowrap">
                     {isOpen ? (id ? "Tutup" : "Close") : (id ? "Tanya Afbi" : "Ask Afbi")}
                 </span>
-
-                {/* Notification dot */}
                 {!isOpen && !hasOpened && (
                     <span className="absolute -top-1 -right-1 w-4 h-4 bg-accent rounded-full border-2 border-white animate-bounce-soft" />
                 )}

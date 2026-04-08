@@ -149,34 +149,65 @@ A: Kunjungi linktr.ee/lpk.afbenesia atau hubungi WhatsApp +62 858 2012 2323.
 - Jika ada pertanyaan yang benar-benar di luar Afbenesia, jawab singkat lalu kembalikan ke topik Afbenesia`;
 
 export async function POST(request) {
-    try {
-        const { messages } = await request.json();
+    // Log untuk debug — hapus setelah chatbot berfungsi normal
+    console.log("[Chat API] Request received");
+    console.log("[Chat API] ANTHROPIC_API_KEY exists:", !!process.env.ANTHROPIC_API_KEY);
 
-        if (!messages || !Array.isArray(messages)) {
+    try {
+        const body = await request.json();
+        const { messages } = body;
+
+        if (!messages || !Array.isArray(messages) || messages.length === 0) {
+            console.error("[Chat API] Invalid messages payload");
             return Response.json({ error: "Invalid messages" }, { status: 400 });
         }
 
-        const client = new Anthropic({
-            apiKey: process.env.ANTHROPIC_API_KEY,
-        });
+        const apiKey = process.env.ANTHROPIC_API_KEY;
+        if (!apiKey) {
+            console.error("[Chat API] ANTHROPIC_API_KEY is not set!");
+            return Response.json(
+                { error: "Server configuration error: API key missing", reply: null },
+                { status: 500 }
+            );
+        }
+
+        const client = new Anthropic({ apiKey });
+
+        // Filter hanya role user dan assistant, pastikan content tidak kosong
+        const filteredMessages = messages
+            .filter(m => m.role === "user" || m.role === "assistant")
+            .filter(m => typeof m.content === "string" && m.content.trim() !== "")
+            .map(m => ({ role: m.role, content: m.content.trim() }));
+
+        if (filteredMessages.length === 0) {
+            return Response.json({ error: "No valid messages" }, { status: 400 });
+        }
+
+        console.log("[Chat API] Sending", filteredMessages.length, "messages to Claude");
 
         const response = await client.messages.create({
-            model: "claude-opus-4-5",
+            model: "claude-haiku-4-5",
             max_tokens: 512,
             system: SYSTEM_PROMPT,
-            messages: messages.map(m => ({
-                role: m.role,
-                content: m.content,
-            })),
+            messages: filteredMessages,
         });
 
         const reply = response.content?.[0]?.text ?? "Maaf, terjadi kesalahan. Silakan coba lagi.";
+        console.log("[Chat API] Reply received, length:", reply.length);
 
         return Response.json({ reply });
+
     } catch (error) {
-        console.error("Chat API error:", error);
+        console.error("[Chat API] Error:", error?.message ?? error);
+        console.error("[Chat API] Error type:", error?.constructor?.name);
+
+        // Kembalikan error detail untuk debugging (bisa dihapus di production)
         return Response.json(
-            { error: "Internal server error", reply: null },
+            {
+                error: "Internal server error",
+                detail: error?.message ?? "Unknown error",
+                reply: null,
+            },
             { status: 500 }
         );
     }

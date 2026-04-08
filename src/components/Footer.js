@@ -75,7 +75,7 @@ export default function Footer() {
 
                 {/* Services */}
                 <div>
-                    <h4 className="font-bold text-sm uppercase tracking-widest text-white/40 mb-5">{t("footer_services")}</h4>
+                    <h4 className="font-bold text-sm uppercase tracking-widest text-white/40 mb-5">{t("services")}</h4>
                     <ul className="space-y-2.5">
                         {serviceList.map((service) => (
                             <li key={service.label}>

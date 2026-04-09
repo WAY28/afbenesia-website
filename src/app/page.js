@@ -6,12 +6,12 @@ import { useLang } from "@/components/LanguageContext";
 const WA_URL = "https://wa.me/6285820122323?text=Halo%20Afbenesia%2C%20saya%20ingin%20konsultasi%20mengenai%20layanan%20Anda.";
 
 const partners = [
-    { name: "KemenkopUKM", abbr: "KemenKop\nUKM" },
-    { name: "PT Maju Bersama", abbr: "PT Maju\nBersama" },
-    { name: "Dinas Perindustrian Jombang", abbr: "Dinas\nJombang" },
-    { name: "Startup X", abbr: "Startup X" },
-    { name: "CoffeeHouse", abbr: "Coffee\nHouse" },
-    { name: "Toko Nusantara", abbr: "Toko\nNusantara" },
+    { name: "KemenkopUKM",              abbr: "KemenKop\nUKM",    logo: "/logos/kemenkop.png" },
+    { name: "PT Maju Bersama",          abbr: "PT Maju\nBersama", logo: "/logos/pt-maju-bersama.png" },
+    { name: "Dinas Perindustrian Jombang", abbr: "Dinas\nJombang", logo: "/logos/dinas-jombang.png" },
+    { name: "Startup X",                abbr: "Startup X",        logo: "/logos/startup-x.png" },
+    { name: "CoffeeHouse",              abbr: "Coffee\nHouse",    logo: "/logos/coffeehouse.png" },
+    { name: "Toko Nusantara",           abbr: "Toko\nNusantara",  logo: "/logos/toko-nusantara.png" },
 ];
 
 const testimonialsId = [
@@ -62,6 +62,70 @@ const testimonialsEn = [
     },
 ];
 
+/* ── Marquee (infinite scroll) ── */
+function PartnerMarquee({ items }) {
+    // Duplicate the list so the loop feels seamless
+    const doubled = [...items, ...items];
+
+    return (
+        <div className="relative overflow-hidden w-full">
+            {/* Fade edges */}
+            <div className="pointer-events-none absolute left-0 top-0 h-full w-24 z-10
+                            bg-gradient-to-r from-white to-transparent" />
+            <div className="pointer-events-none absolute right-0 top-0 h-full w-24 z-10
+                            bg-gradient-to-l from-white to-transparent" />
+
+            <div
+                className="flex gap-5 w-max"
+                style={{ animation: "marquee 28s linear infinite" }}
+                onMouseEnter={(e) => (e.currentTarget.style.animationPlayState = "paused")}
+                onMouseLeave={(e) => (e.currentTarget.style.animationPlayState = "running")}
+            >
+                {doubled.map((p, idx) => (
+                    <PartnerCard key={`${p.name}-${idx}`} partner={p} />
+                ))}
+            </div>
+
+            {/* keyframes injected once */}
+            <style>{`
+                @keyframes marquee {
+                    0%   { transform: translateX(0); }
+                    100% { transform: translateX(-50%); }
+                }
+            `}</style>
+        </div>
+    );
+}
+
+function PartnerCard({ partner }) {
+    return (
+        <div className="flex-shrink-0 flex flex-col items-center justify-center
+                        w-36 h-20 bg-cream rounded-2xl border border-[#E2E8F0]
+                        px-4 py-3 hover:shadow-md hover:border-primary/30
+                        transition-all duration-200 group cursor-default select-none">
+            {/* Logo image — falls back to abbreviation text if image missing */}
+            <div className="relative w-20 h-10 flex items-center justify-center">
+                <Image
+                    src={partner.logo}
+                    alt={partner.name}
+                    fill
+                    className="object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-200"
+                    onError={(e) => {
+                        // hide broken image and show fallback text
+                        e.currentTarget.style.display = "none";
+                        e.currentTarget.nextSibling?.classList.remove("hidden");
+                    }}
+                />
+                {/* Fallback abbr text (hidden by default) */}
+                <span className="hidden text-dark/50 text-[10px] font-semibold text-center
+                                 whitespace-pre-line leading-tight">
+                    {partner.abbr}
+                </span>
+            </div>
+        </div>
+    );
+}
+
 export default function HomePage() {
     const { lang, t } = useLang();
 
@@ -75,8 +139,8 @@ export default function HomePage() {
 
     const statsData = [
         { value: "100+", label: t("stat_clients") },
-        { value: "98%", label: t("stat_satisfaction") },
-        { value: "3+", label: t("stat_experience") },
+        { value: "98%",  label: t("stat_satisfaction") },
+        { value: "3+",   label: t("stat_experience") },
         { value: "200%", label: t("stat_growth") },
     ];
 
@@ -84,17 +148,17 @@ export default function HomePage() {
     const testimonials = lang === "en" ? testimonialsEn : testimonialsId;
 
     const aboutCardsId = [
-        { num: "100+", sub: "Klien Aktif", bg: "bg-primary", text: "text-white" },
-        { num: "3+", sub: "Tahun Berpengalaman", bg: "bg-accent", text: "text-dark" },
-        { num: "200%", sub: "Avg. Kenaikan Omset", bg: "bg-dark", text: "text-white" },
-        { num: "98%", sub: "Tingkat Kepuasan", bg: "bg-white border border-[#E2E8F0]", text: "text-dark" },
+        { num: "100+", sub: "Klien Aktif",         bg: "bg-primary", text: "text-white" },
+        { num: "3+",   sub: "Tahun Berpengalaman",  bg: "bg-accent",  text: "text-dark" },
+        { num: "200%", sub: "Avg. Kenaikan Omset",  bg: "bg-dark",    text: "text-white" },
+        { num: "98%",  sub: "Tingkat Kepuasan",     bg: "bg-white border border-[#E2E8F0]", text: "text-dark" },
     ];
 
     const aboutCardsEn = [
-        { num: "100+", sub: "Active Clients", bg: "bg-primary", text: "text-white" },
-        { num: "3+", sub: "Years of Experience", bg: "bg-accent", text: "text-dark" },
-        { num: "200%", sub: "Avg. Revenue Growth", bg: "bg-dark", text: "text-white" },
-        { num: "98%", sub: "Satisfaction Rate", bg: "bg-white border border-[#E2E8F0]", text: "text-dark" },
+        { num: "100+", sub: "Active Clients",      bg: "bg-primary", text: "text-white" },
+        { num: "3+",   sub: "Years of Experience", bg: "bg-accent",  text: "text-dark" },
+        { num: "200%", sub: "Avg. Revenue Growth", bg: "bg-dark",    text: "text-white" },
+        { num: "98%",  sub: "Satisfaction Rate",   bg: "bg-white border border-[#E2E8F0]", text: "text-dark" },
     ];
 
     const aboutCards = lang === "en" ? aboutCardsEn : aboutCardsId;
@@ -154,7 +218,7 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* ===== PARTNERS ===== */}
+            {/* ===== PARTNERS (dengan logo + animasi marquee berjalan) ===== */}
             <section className="py-16 bg-white border-b border-[#E2E8F0]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-10">
@@ -162,12 +226,12 @@ export default function HomePage() {
                         <h2 className="text-2xl sm:text-3xl font-extrabold text-dark tracking-tight">{t("partners_title")}</h2>
                         <p className="text-dark/55 text-sm mt-3 max-w-xl mx-auto">{t("partners_desc")}</p>
                     </div>
-                    <div className="flex flex-wrap justify-center gap-4">
-                        {partners.map((p) => (
-                            <div key={p.name} className="flex items-center justify-center w-28 h-16 bg-cream rounded-xl border border-[#E2E8F0] px-3">
-                                <span className="text-dark/50 text-xs font-semibold text-center whitespace-pre-line leading-tight">{p.abbr}</span>
-                            </div>
-                        ))}
+
+                    {/* ── Marquee strip ── */}
+                    <PartnerMarquee items={partners} />
+
+                    {/* Award badges (static, below marquee) */}
+                    <div className="flex flex-wrap justify-center gap-4 mt-8">
                         <div className="flex items-center justify-center w-28 h-16 bg-primary/5 rounded-xl border border-primary/20 px-3">
                             <span className="text-primary text-xs font-bold text-center">🏆 {t("award1_title")}</span>
                         </div>

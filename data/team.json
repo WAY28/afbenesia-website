@@ -1,0 +1,43 @@
+[
+  {
+    "id": "jc",
+    "name": "Johan Cahyadi",
+    "role": "Founder & CEO",
+    "roleEn": "Founder & CEO",
+    "initials": "JC",
+    "desc": "Visioner di balik konsep Humanized AI untuk bisnis Indonesia.",
+    "descEn": "The visionary behind the Humanized AI concept for Indonesian businesses.",
+    "active": true
+  },
+  {
+    "id": "lm",
+    "name": "Lidya Meliana",
+    "role": "Chief Marketing Officer",
+    "roleEn": "Chief Marketing Officer",
+    "initials": "LM",
+    "desc": "Ahli strategi pemasaran digital dengan pengalaman 5+ tahun.",
+    "descEn": "Digital marketing strategy expert with 5+ years of experience.",
+    "active": true
+  },
+  {
+    "id": "mk",
+    "name": "Melisa Kristi",
+    "role": "Chief Financial Officer",
+    "roleEn": "Chief Financial Officer",
+    "initials": "MK",
+    "desc": "Pakar keuangan yang memastikan pertumbuhan bisnis yang sehat.",
+    "descEn": "Financial expert ensuring healthy and sustainable business growth.",
+    "active": true
+  },
+  {
+    "id": "aa",
+    "name": "Akmal Andriadi",
+    "role": "Head of Digital Strategy",
+    "roleEn": "Head of Digital Strategy",
+    "initials": "AA",
+    "desc": "Spesialis strategi digital dan implementasi solusi AI.",
+    "descEn": "Digital strategy specialist and AI solution implementation expert.",
+    "active": true
+  }
+]
+

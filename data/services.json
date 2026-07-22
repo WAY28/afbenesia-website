@@ -1,0 +1,81 @@
+[
+  {
+    "id": "ai-digital-strategy",
+    "icon": "🤖",
+    "title": "AI Digital Strategy Consulting",
+    "titleEn": "AI Digital Strategy Consulting",
+    "tag": "Terpopuler",
+    "tagEn": "Most Popular",
+    "desc": "Strategi digital berbasis AI yang disesuaikan dengan kebutuhan unik bisnis Anda untuk hasil yang terukur dan berkelanjutan.",
+    "descEn": "AI-based digital strategy tailored to your unique business needs for measurable and sustainable results.",
+    "features": ["Analisis pasar & kompetitor berbasis data", "Strategi SEO & SEM yang teroptimasi AI", "Perencanaan kampanye iklan digital", "Dashboard monitoring & reporting real-time", "Optimasi konversi berbasis AI"],
+    "featuresEn": ["Data-driven market & competitor analysis", "AI-optimized SEO & SEM strategy", "Digital advertising campaign planning", "Real-time monitoring & reporting dashboard", "AI-based conversion optimization"],
+    "active": true
+  },
+  {
+    "id": "business-coaching",
+    "icon": "🎯",
+    "title": "Business Coaching & Mentorship",
+    "titleEn": "Business Coaching & Mentorship",
+    "tag": null,
+    "tagEn": null,
+    "desc": "Program coaching intensif untuk mengidentifikasi peluang dan mengatasi tantangan bisnis Anda bersama mentor berpengalaman.",
+    "descEn": "Intensive coaching program to identify opportunities and overcome your business challenges with experienced mentors.",
+    "features": ["Sesi coaching 1-on-1 dengan mentor berpengalaman", "Analisis kinerja bisnis berkala", "Perumusan strategi jangka pendek & panjang", "Identifikasi peluang & mitigasi risiko", "Mindset & leadership development"],
+    "featuresEn": ["1-on-1 coaching sessions with experienced mentors", "Periodic business performance analysis", "Short & long-term strategy formulation", "Opportunity identification & risk mitigation", "Mindset & leadership development"],
+    "active": true
+  },
+  {
+    "id": "virtual-assistant",
+    "icon": "🖥️",
+    "title": "Virtual Assistant Services",
+    "titleEn": "Virtual Assistant Services",
+    "tag": null,
+    "tagEn": null,
+    "desc": "Dukungan administrasi profesional agar Anda fokus penuh pada hal yang paling penting untuk pertumbuhan bisnis.",
+    "descEn": "Professional administrative support so you can focus fully on what matters most for business growth.",
+    "features": ["Manajemen email & komunikasi bisnis", "Pengaturan jadwal & kalender", "Pengelolaan media sosial", "Riset & pengumpulan data", "Pembuatan laporan & presentasi"],
+    "featuresEn": ["Email & business communication management", "Schedule & calendar management", "Social media management", "Research & data collection", "Report & presentation creation"],
+    "active": true
+  },
+  {
+    "id": "digital-marketing",
+    "icon": "📢",
+    "title": "Digital Marketing Campaigns",
+    "titleEn": "Digital Marketing Campaigns",
+    "tag": null,
+    "tagEn": null,
+    "desc": "Kampanye pemasaran digital efektif untuk meningkatkan visibilitas, engagement, dan konversi bisnis Anda.",
+    "descEn": "Effective digital marketing campaigns to increase visibility, engagement, and business conversions.",
+    "features": ["Google Ads & Meta Ads management", "Konten marketing & copywriting", "Email marketing campaigns", "Social media management", "Analitik & optimasi kampanye"],
+    "featuresEn": ["Google Ads & Meta Ads management", "Content marketing & copywriting", "Email marketing campaigns", "Social media management", "Analytics & campaign optimization"],
+    "active": true
+  },
+  {
+    "id": "custom-ai",
+    "icon": "⚙️",
+    "title": "Custom AI Solutions",
+    "titleEn": "Custom AI Solutions",
+    "tag": "Baru",
+    "tagEn": "New",
+    "desc": "Pengembangan solusi AI kustom seperti chatbot, sistem rekomendasi produk, dan analitik prediktif.",
+    "descEn": "Development of custom AI solutions like chatbots, product recommendation systems, and predictive analytics.",
+    "features": ["Chatbot AI untuk customer service", "Sistem rekomendasi produk", "Analitik prediktif & forecasting", "Otomasi proses bisnis berbasis AI", "Integrasi dengan sistem existing"],
+    "featuresEn": ["AI chatbot for customer service", "Product recommendation system", "Predictive analytics & forecasting", "AI-based business process automation", "Integration with existing systems"],
+    "active": true
+  },
+  {
+    "id": "email-marketing",
+    "icon": "✉️",
+    "title": "Email Marketing Strategy",
+    "titleEn": "Email Marketing Strategy",
+    "tag": null,
+    "tagEn": null,
+    "desc": "Strategi kampanye email yang personal dan tertarget untuk membangun loyalitas pelanggan dan meningkatkan penjualan.",
+    "descEn": "Personal and targeted email campaigns to build customer loyalty and increase sales.",
+    "features": ["Segmentasi audiens yang tepat", "Desain email yang menarik & responsif", "Automation & drip campaign", "A/B testing & optimasi", "Laporan performa komprehensif"],
+    "featuresEn": ["Precise audience segmentation", "Attractive & responsive email design", "Automation & drip campaigns", "A/B testing & optimization", "Comprehensive performance reports"],
+    "active": true
+  }
+]
+

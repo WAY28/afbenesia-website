@@ -1,0 +1,45 @@
+[
+  {
+    "id": "kemenkop",
+    "name": "KemenkopUKM",
+    "abbr": "KemenKop\nUKM",
+    "logo": "/logos/kemenkop.png",
+    "active": true
+  },
+  {
+    "id": "pt-maju-bersama",
+    "name": "PT Maju Bersama",
+    "abbr": "PT Maju\nBersama",
+    "logo": "/logos/pt-maju-bersama.png",
+    "active": true
+  },
+  {
+    "id": "dinas-jombang",
+    "name": "Dinas Perindustrian Jombang",
+    "abbr": "Dinas\nJombang",
+    "logo": "/logos/dinas-jombang.png",
+    "active": true
+  },
+  {
+    "id": "startup-x",
+    "name": "Startup X",
+    "abbr": "Startup X",
+    "logo": "/logos/startup-x.png",
+    "active": true
+  },
+  {
+    "id": "coffeehouse",
+    "name": "CoffeeHouse",
+    "abbr": "Coffee\nHouse",
+    "logo": "/logos/coffeehouse.png",
+    "active": true
+  },
+  {
+    "id": "toko-nusantara",
+    "name": "Toko Nusantara",
+    "abbr": "Toko\nNusantara",
+    "logo": "/logos/toko-nusantara.png",
+    "active": true
+  }
+]
+

@@ -1,0 +1,36 @@
+[
+  {
+    "id": "testi-1",
+    "name": "Budi Santoso",
+    "role": "CEO PT Maju Jaya",
+    "roleEn": "CEO PT Maju Jaya",
+    "text": "Afbenesia membantu kami meraih peningkatan penjualan hingga 200% dalam 6 bulan. Pendekatan humanized AI-nya sangat efektif dan terasa personal.",
+    "textEn": "Afbenesia helped us achieve a 200% sales increase in 6 months. Their humanized AI approach is highly effective and feels truly personal.",
+    "avatar": "BS",
+    "rating": 5,
+    "active": true
+  },
+  {
+    "id": "testi-2",
+    "name": "Sarah Wijaya",
+    "role": "Founder Kreatif Indah",
+    "roleEn": "Founder Kreatif Indah",
+    "text": "Layanan coaching dari Afbenesia benar-benar mengubah cara kami menjalankan bisnis. Strategi yang diberikan sangat jelas dan actionable.",
+    "textEn": "The coaching services from Afbenesia completely changed how we run our business. The strategies given are very clear and actionable.",
+    "avatar": "SW",
+    "rating": 5,
+    "active": true
+  },
+  {
+    "id": "testi-3",
+    "name": "Diana",
+    "role": "COO Startup X",
+    "roleEn": "COO Startup X",
+    "text": "Layanan virtual assistant mereka adalah game-changer untuk bisnis kami. Efisiensi operasional kami meningkat drastis sejak bekerja sama.",
+    "textEn": "Their virtual assistant service is a game-changer for our business. Our operational efficiency has increased dramatically since we started working together.",
+    "avatar": "DI",
+    "rating": 5,
+    "active": true
+  }
+]
+

@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import AfbenesiaChatbot from "@/components/AfbenesiaChatbot";
 import { LanguageProvider } from "@/components/LanguageContext";
+import Script from "next/script";
 
 export const metadata = {
     title: {
@@ -43,7 +44,7 @@ export default function RootLayout({ children }) {
                     <AfbenesiaChatbot />
                     <Footer />
                 </LanguageProvider>
-                <script dangerouslySetInnerHTML={{__html:`(function(){function r(){document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(function(e){if(e.getBoundingClientRect().top<window.innerHeight-60)e.classList.add('revealed');});}window.addEventListener('scroll',r,{passive:true});window.addEventListener('load',r);r();})();`}} />
+                <Script id="reveal-init" strategy="afterInteractive" dangerouslySetInnerHTML={{__html:`(function(){function r(){document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(function(e){if(e.getBoundingClientRect().top<window.innerHeight-60)e.classList.add('revealed');});}window.addEventListener('scroll',r,{passive:true});window.addEventListener('load',r);r();})();`}} />
             </body>
         </html>
     );

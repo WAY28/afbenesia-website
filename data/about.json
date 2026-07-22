@@ -1,0 +1,111 @@
+{
+  "vision": "Menjadi mitra terpercaya bagi bisnis di seluruh Indonesia dalam mencapai kesuksesan melalui penerapan teknologi terbaru dan bimbingan yang holistik.",
+  "visionEn": "To become a trusted partner for businesses throughout Indonesia in achieving success through the application of the latest technology and holistic guidance.",
+  "missions": [
+    "Memberikan solusi strategi digital dan coaching bisnis yang inovatif.",
+    "Memungkinkan setiap bisnis untuk berkembang dengan cara yang paling efektif dan berkelanjutan.",
+    "Menghadirkan teknologi AI yang terasa humanized — personal dan relevan."
+  ],
+  "missionsEn": [
+    "Providing innovative digital strategy and business coaching solutions.",
+    "Enabling every business to grow in the most effective and sustainable way.",
+    "Delivering AI technology that feels humanized — personal and relevant."
+  ],
+  "values": [
+    {
+      "id": "inovasi",
+      "title": "Inovasi",
+      "titleEn": "Innovation",
+      "desc": "Kami selalu mencari cara baru dan lebih baik untuk melayani klien, memanfaatkan teknologi terdepan seperti AI.",
+      "descEn": "We always seek new and better ways to serve clients, leveraging cutting-edge technology like AI."
+    },
+    {
+      "id": "integritas",
+      "title": "Integritas",
+      "titleEn": "Integrity",
+      "desc": "Kejujuran dan transparansi dalam setiap interaksi dengan klien dan mitra adalah komitmen kami.",
+      "descEn": "Honesty and transparency in every interaction with clients and partners is our commitment."
+    },
+    {
+      "id": "keberlanjutan",
+      "title": "Keberlanjutan",
+      "titleEn": "Sustainability",
+      "desc": "Kami fokus pada solusi jangka panjang yang membawa manfaat berkelanjutan, bukan sekadar hasil instan.",
+      "descEn": "We focus on long-term solutions that bring lasting benefits, not just instant results."
+    },
+    {
+      "id": "humanized",
+      "title": "Humanized",
+      "titleEn": "Humanized",
+      "desc": "Teknologi harus terasa manusiawi. Kami memastikan setiap solusi AI tetap memiliki sentuhan personal.",
+      "descEn": "Technology must feel human. We ensure every AI solution retains a personal touch."
+    }
+  ],
+  "timeline": [
+    {
+      "year": "2018",
+      "desc": "Afbenesia didirikan dengan misi untuk membantu bisnis kecil menengah di Indonesia berkembang melalui teknologi digital.",
+      "descEn": "Afbenesia was founded with a mission to help small and medium businesses in Indonesia grow through digital technology."
+    },
+    {
+      "year": "2019",
+      "desc": "Peluncuran program coaching pertama yang berfokus pada strategi digital untuk UMKM.",
+      "descEn": "Launch of our first coaching program focused on digital strategy for SMEs."
+    },
+    {
+      "year": "2020",
+      "desc": "Mengembangkan layanan konsultasi dan pendampingan bisnis yang holistik dan berkelanjutan.",
+      "descEn": "Developed holistic and sustainable business consulting and mentoring services."
+    },
+    {
+      "year": "2021",
+      "desc": "Meraih penghargaan Top 6 program Entrepreneur Development oleh KemenkopUKM bidang Jasa & Teknologi.",
+      "descEn": "Won Top 6 in KemenkopUKM's Entrepreneur Development program in Services & Technology."
+    },
+    {
+      "year": "2023",
+      "desc": "Meluncurkan layanan Humanized AI — menggabungkan kecerdasan buatan dengan sentuhan manusiawi.",
+      "descEn": "Launched Humanized AI services — combining artificial intelligence with a human touch."
+    },
+    {
+      "year": "2024",
+      "desc": "Ekspansi layanan ke seluruh Indonesia dengan 100+ klien aktif dan tingkat kepuasan 98%.",
+      "descEn": "Expanded services nationwide with 100+ active clients and 98% satisfaction rate."
+    }
+  ],
+  "achievements": [
+    {
+      "id": "top6",
+      "icon": "🏆",
+      "title": "Top 6 KemenkopUKM",
+      "titleEn": "Top 6 KemenkopUKM",
+      "desc": "Masuk dalam 6 besar program Pendampingan Usaha bidang Jasa dan Teknologi.",
+      "descEn": "Among the top 6 in the Business Development program in Services and Technology."
+    },
+    {
+      "id": "clients",
+      "icon": "👥",
+      "title": "100+ Klien Sukses",
+      "titleEn": "100+ Successful Clients",
+      "desc": "Membantu lebih dari 100 bisnis mencapai tujuan mereka di seluruh Indonesia.",
+      "descEn": "Helped more than 100 businesses achieve their goals across Indonesia."
+    },
+    {
+      "id": "growth",
+      "icon": "📈",
+      "title": "Kenaikan Omset 200%",
+      "titleEn": "200% Revenue Growth",
+      "desc": "Rata-rata klien melaporkan kenaikan omset signifikan setelah menggunakan layanan kami.",
+      "descEn": "Clients report significant revenue growth after using our services."
+    },
+    {
+      "id": "satisfaction",
+      "icon": "⭐",
+      "title": "98% Tingkat Kepuasan",
+      "titleEn": "98% Satisfaction Rate",
+      "desc": "Hampir seluruh klien kami menyatakan puas dan merekomendasikan Afbenesia.",
+      "descEn": "Almost all our clients say they are satisfied and recommend Afbenesia."
+    }
+  ]
+}
+

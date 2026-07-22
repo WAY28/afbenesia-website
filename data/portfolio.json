@@ -1,0 +1,75 @@
+[
+  {
+    "slug": "pt-maju-bersama",
+    "title": "Transformasi Digital PT Maju Bersama",
+    "titleEn": "Digital Transformation of PT Maju Bersama",
+    "category": "AI Digital Strategy",
+    "result": "+200% Konversi",
+    "resultEn": "+200% Conversion",
+    "desc": "Merancang strategi digital berbasis AI yang menghasilkan peningkatan 200% dalam konversi pemasaran digital dalam waktu 6 bulan.",
+    "descEn": "Designed an AI-based digital strategy that achieved a 200% increase in digital marketing conversions within 6 months.",
+    "tags": ["AI Strategy", "Digital Marketing", "SEO"],
+    "active": true
+  },
+  {
+    "slug": "startup-x-virtual-assistant",
+    "title": "Virtual Assistant untuk Startup X",
+    "titleEn": "Virtual Assistant for Startup X",
+    "category": "Virtual Assistant",
+    "result": "+50% Efisiensi",
+    "resultEn": "+50% Efficiency",
+    "desc": "Mengembangkan sistem virtual assistant yang meningkatkan efisiensi operasional 50%, membebaskan tim untuk fokus pada pengembangan produk.",
+    "descEn": "Developed a virtual assistant system that improved operational efficiency by 50%, freeing the team to focus on product development.",
+    "tags": ["Virtual Assistant", "Automation", "Operations"],
+    "active": true
+  },
+  {
+    "slug": "coffeehouse-digital-campaign",
+    "title": "Kampanye Digital CoffeeHouse",
+    "titleEn": "CoffeeHouse Digital Campaign",
+    "category": "Digital Marketing",
+    "result": "+300% Engagement",
+    "resultEn": "+300% Engagement",
+    "desc": "Meningkatkan engagement media sosial 300% dan penjualan online 150% melalui kampanye digital yang tertarget dan kreatif.",
+    "descEn": "Boosted social media engagement by 300% and online sales by 150% through targeted and creative digital campaigns.",
+    "tags": ["Social Media", "Content Marketing", "Ads"],
+    "active": true
+  },
+  {
+    "slug": "toko-nusantara-coaching",
+    "title": "Coaching Bisnis Toko Nusantara",
+    "titleEn": "Business Coaching for Toko Nusantara",
+    "category": "Business Coaching",
+    "result": "+25% Revenue",
+    "resultEn": "+25% Revenue",
+    "desc": "Melalui program coaching intensif, Toko Nusantara berhasil menavigasi tantangan pasar dan meningkatkan pendapatan bulanan 25%.",
+    "descEn": "Through an intensive coaching program, Toko Nusantara successfully navigated market challenges and grew monthly revenue by 25%.",
+    "tags": ["Business Coaching", "Mentorship", "Strategy"],
+    "active": true
+  },
+  {
+    "slug": "kreatif-indah-email-marketing",
+    "title": "Email Marketing Kreatif Indah",
+    "titleEn": "Email Marketing for Kreatif Indah",
+    "category": "Email Marketing",
+    "result": "+40% Open Rate",
+    "resultEn": "+40% Open Rate",
+    "desc": "Strategi email marketing yang personal meningkatkan open rate 40% dan konversi penjualan 30% dalam 3 bulan pertama.",
+    "descEn": "A personalized email marketing strategy increased open rates by 40% and sales conversions by 30% in the first 3 months.",
+    "tags": ["Email Marketing", "CRM", "Segmentation"],
+    "active": true
+  },
+  {
+    "slug": "retailindo-ai-chatbot",
+    "title": "AI Chatbot Retailindo",
+    "titleEn": "AI Chatbot for Retailindo",
+    "category": "Custom AI Solutions",
+    "result": "-60% Response Time",
+    "resultEn": "-60% Response Time",
+    "desc": "Implementasi chatbot AI untuk customer service yang memangkas waktu respons 60% dan meningkatkan kepuasan pelanggan secara signifikan.",
+    "descEn": "Implemented an AI chatbot for customer service that cut response times by 60% and significantly improved customer satisfaction.",
+    "tags": ["AI Chatbot", "Customer Service", "Automation"],
+    "active": true
+  }
+]
+

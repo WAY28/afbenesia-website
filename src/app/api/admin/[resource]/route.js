@@ -1,13 +1,10 @@
 // ============================================================
-// /api/admin/[resource] — CRUD for admin data resources
+// /api/admin/[resource] — CRUD for admin data resources using SQLite
 // Resources: services, portfolio, blog, training, testimonials,
 //            partners, team, about
 // ============================================================
 
-import { promises as fs } from "fs";
-import path from "path";
-
-const DATA_DIR = path.join(process.cwd(), "data");
+import { getAll, getById, createItem, updateItem, deleteItem, getAbout, updateAbout } from "@/lib/db";
 
 // Simple token validation
 function validateToken(token) {
@@ -22,14 +19,26 @@ function validateToken(token) {
     }
 }
 
-// Get file path for a resource
-function getFilePath(resource) {
-    const allowedResources = [
-        "services", "portfolio", "blog", "training",
-        "testimonials", "partners", "team", "about",
-    ];
-    if (!allowedResources.includes(resource)) return null;
-    return path.join(DATA_DIR, `${resource}.json`);
+// Resource config: { table, idField }
+const resourceConfig = {
+    services: { table: "services", idField: "id" },
+    portfolio: { table: "portfolio", idField: "slug" },
+    blog: { table: "blog", idField: "slug" },
+    training: { table: "training", idField: "slug" },
+    testimonials: { table: "testimonials", idField: "id" },
+    partners: { table: "partners", idField: "id" },
+    team: { table: "team", idField: "id" },
+};
+
+// Serialize arrays to JSON strings for storage
+function serialize(obj) {
+    const result = { ...obj };
+    for (const key of Object.keys(result)) {
+        if (Array.isArray(result[key])) {
+            result[key] = JSON.stringify(result[key]);
+        }
+    }
+    return result;
 }
 
 // GET /api/admin/[resource]
@@ -41,19 +50,22 @@ export async function GET(request, { params }) {
         return Response.json({ success: false, message: "Unauthorized" }, { status: 401 });
     }
 
-    const filePath = getFilePath(resource);
-    if (!filePath) {
-        return Response.json({ success: false, message: "Resource not found" }, { status: 404 });
-    }
-
     try {
-        const content = await fs.readFile(filePath, "utf-8");
-        const data = JSON.parse(content);
+        if (resource === "about") {
+            const data = await getAbout();
+            return Response.json({ success: true, data });
+        }
+
+        const config = resourceConfig[resource];
+        if (!config) {
+            return Response.json({ success: false, message: "Resource not found" }, { status: 404 });
+        }
+
+        const data = await getAll(config.table);
         return Response.json({ success: true, data });
     } catch (error) {
-        // File doesn't exist yet, return empty data
-        const emptyData = resource === "about" ? {} : [];
-        return Response.json({ success: true, data: emptyData });
+        console.error(`[Admin API] Error fetching ${resource}:`, error);
+        return Response.json({ success: false, message: "Error fetching data" }, { status: 500 });
     }
 }
 
@@ -66,37 +78,25 @@ export async function POST(request, { params }) {
         return Response.json({ success: false, message: "Unauthorized" }, { status: 401 });
     }
 
-    const filePath = getFilePath(resource);
-    if (!filePath) {
-        return Response.json({ success: false, message: "Resource not found" }, { status: 404 });
-    }
-
-    // For "about" resource, use PUT instead (singular object)
     if (resource === "about") {
         return Response.json({ success: false, message: "Use PUT for about resource" }, { status: 400 });
     }
 
+    const config = resourceConfig[resource];
+    if (!config) {
+        return Response.json({ success: false, message: "Resource not found" }, { status: 404 });
+    }
+
     try {
         const body = await request.json();
-        let data = [];
+        const serialized = serialize(body);
 
-        try {
-            const content = await fs.readFile(filePath, "utf-8");
-            data = JSON.parse(content);
-        } catch {
-            data = [];
+        // Add createdAt if not present
+        if (!serialized.createdAt) {
+            serialized.createdAt = new Date().toISOString();
         }
 
-        if (!Array.isArray(data)) data = [];
-
-        // Add ID if not present
-        if (!body.id && resource !== "partners") {
-            body.id = `${resource}-${Date.now()}`;
-        }
-
-        data.push(body);
-        await fs.writeFile(filePath, JSON.stringify(data, null, 2), "utf-8");
-
+        await createItem(config.table, serialized);
         return Response.json({ success: true, message: "Item created", data: body }, { status: 201 });
     } catch (error) {
         console.error(`[Admin API] Error creating ${resource}:`, error);
@@ -113,43 +113,30 @@ export async function PUT(request, { params }) {
         return Response.json({ success: false, message: "Unauthorized" }, { status: 401 });
     }
 
-    const filePath = getFilePath(resource);
-    if (!filePath) {
-        return Response.json({ success: false, message: "Resource not found" }, { status: 404 });
-    }
-
     try {
-        const body = await request.json();
-
-        // For "about" resource, replace the whole object
         if (resource === "about") {
-            await fs.writeFile(filePath, JSON.stringify(body, null, 2), "utf-8");
-            return Response.json({ success: true, message: "Updated", data: body });
+            const body = await request.json();
+            const serialized = serialize(body);
+            await updateAbout(serialized);
+            return Response.json({ success: true, message: "About updated", data: body });
         }
 
-        let data = [];
-        try {
-            const content = await fs.readFile(filePath, "utf-8");
-            data = JSON.parse(content);
-        } catch {
-            return Response.json({ success: false, message: "No data found" }, { status: 404 });
+        const config = resourceConfig[resource];
+        if (!config) {
+            return Response.json({ success: false, message: "Resource not found" }, { status: 404 });
         }
 
-        if (!Array.isArray(data)) {
-            return Response.json({ success: false, message: "Invalid data format" }, { status: 500 });
-        }
-
+        const body = await request.json();
         const { id, ...updateData } = body;
-        const index = data.findIndex((item) => item.id === id || item.slug === id);
+        const idValue = body[config.idField] || id;
 
-        if (index === -1) {
-            return Response.json({ success: false, message: "Item not found" }, { status: 404 });
+        if (!idValue) {
+            return Response.json({ success: false, message: "ID required" }, { status: 400 });
         }
 
-        data[index] = { ...data[index], ...updateData, id: data[index].id };
-        await fs.writeFile(filePath, JSON.stringify(data, null, 2), "utf-8");
-
-        return Response.json({ success: true, message: "Item updated", data: data[index] });
+        const serialized = serialize(updateData);
+        await updateItem(config.table, serialized, config.idField, idValue);
+        return Response.json({ success: true, message: "Item updated" });
     } catch (error) {
         console.error(`[Admin API] Error updating ${resource}:`, error);
         return Response.json({ success: false, message: "Error updating item" }, { status: 500 });
@@ -171,35 +158,17 @@ export async function DELETE(request, { params }) {
         return Response.json({ success: false, message: "ID parameter required" }, { status: 400 });
     }
 
-    const filePath = getFilePath(resource);
-    if (!filePath) {
-        return Response.json({ success: false, message: "Resource not found" }, { status: 404 });
-    }
-
     if (resource === "about") {
         return Response.json({ success: false, message: "Cannot delete about resource" }, { status: 400 });
     }
 
+    const config = resourceConfig[resource];
+    if (!config) {
+        return Response.json({ success: false, message: "Resource not found" }, { status: 404 });
+    }
+
     try {
-        let data = [];
-        try {
-            const content = await fs.readFile(filePath, "utf-8");
-            data = JSON.parse(content);
-        } catch {
-            return Response.json({ success: false, message: "No data found" }, { status: 404 });
-        }
-
-        if (!Array.isArray(data)) {
-            return Response.json({ success: false, message: "Invalid data format" }, { status: 500 });
-        }
-
-        const newData = data.filter((item) => item.id !== id && item.slug !== id);
-
-        if (newData.length === data.length) {
-            return Response.json({ success: false, message: "Item not found" }, { status: 404 });
-        }
-
-        await fs.writeFile(filePath, JSON.stringify(newData, null, 2), "utf-8");
+        await deleteItem(config.table, config.idField, id);
         return Response.json({ success: true, message: "Item deleted" });
     } catch (error) {
         console.error(`[Admin API] Error deleting ${resource}:`, error);
